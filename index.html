@@ -2,488 +2,523 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>雅思口语跟读 · 连读强化版</title>
-<meta name="description" content="雅思口语AI生成答案、分句跟读、连读分析、4维评分">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>雅思口语跟读 · 免费版</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --g:#3a6651; --o:#b05e28; --b:#325380; --r:#963030; --y:#8a6f25;
-  --ink:#18120e; --sub:#5e5048; --line:#ddd0c2; --bg:#f2ece4;
-  --card:#fff; --pill:14px;
+  --f:#1b4332;--fl:#ecf5f0;--fm:#2d6a4f;
+  --o:#c05621;--ol:#fef3ea;
+  --b:#1e3a5f;--bl:#eaf0f8;
+  --y:#8a6f25;--r:#963030;
+  --ink:#15100c;--sub:#6a5b50;--sub2:#9c8f86;
+  --line:#e0d6cc;--line2:#ede6dc;--bg:#ede9e3;--card:#fff;--surf:#faf7f4;
+  --r14:14px;--r20:20px;
+  --sh:0 2px 14px rgba(30,20,10,.06),0 6px 28px rgba(30,20,10,.05);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
-  background:var(--bg);color:var(--ink);min-height:100vh;
-  max-width:700px;margin:0 auto;padding-bottom:90px;font-size:15px;line-height:1.5}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);
+  max-width:720px;margin:0 auto;padding-bottom:100px;font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased}
 
-/* ── HEADER ── */
-.hdr{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);
-  backdrop-filter:blur(14px);border-bottom:1px solid var(--line);
-  display:flex;align-items:center;justify-content:space-between;padding:12px 16px}
-.logo{font-size:16px;font-weight:900;letter-spacing:-.03em}
-.logo em{color:var(--g);font-style:normal}
-.hdr-btns{display:flex;gap:8px}
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.93);
+  backdrop-filter:blur(18px);border-bottom:1px solid rgba(224,214,204,.7);
+  display:flex;align-items:center;justify-content:space-between;padding:13px 18px}
+.logo{font-size:17px;font-weight:800;letter-spacing:-.04em}
+.logo em{color:var(--f);font-style:normal}
+.badge-free{background:var(--fl);color:var(--fm);font-size:10px;font-weight:700;
+  padding:3px 8px;border-radius:999px;margin-left:7px;letter-spacing:.04em}
+.hdr-r{display:flex;gap:8px}
 
-/* ── SETTINGS DRAWER ── */
-.drawer{max-height:0;overflow:hidden;transition:max-height .3s ease;
-  background:#faf8f5;border-bottom:1px solid var(--line)}
-.drawer.open{max-height:360px}
-.drawer-inner{padding:16px}
-.drawer-inner label{display:block;font-size:11px;font-weight:800;color:var(--sub);
-  text-transform:uppercase;letter-spacing:.06em;margin:12px 0 5px}
-.drawer-inner label:first-child{margin-top:0}
-.key-wrap{position:relative}
-.key-wrap input{padding-right:70px}
-.key-save{position:absolute;right:6px;top:50%;transform:translateY(-50%);
-  background:var(--g);color:#fff;border:0;border-radius:8px;padding:5px 10px;
-  font-size:11px;font-weight:800;cursor:pointer}
-.rate-row{display:flex;align-items:center;gap:10px}
-.rate-row input{flex:1}
-.rate-val{font-size:12px;font-weight:800;color:var(--g);width:28px;text-align:right}
-#vMsg{font-size:11px;color:var(--sub);margin-top:6px}
+/* DRAWER */
+.drawer{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.4,0,.2,1);
+  background:var(--surf);border-bottom:1px solid var(--line)}
+.drawer.open{max-height:500px}
+.drw{padding:18px 20px}
+.dlbl{display:block;font-size:11px;font-weight:700;color:var(--sub);
+  text-transform:uppercase;letter-spacing:.07em;margin:13px 0 6px}
+.dlbl:first-child{margin-top:0}
+.kwrap{position:relative}
+.kwrap input{padding-right:72px}
+.ksave{position:absolute;right:7px;top:50%;transform:translateY(-50%);
+  background:var(--f);color:#fff;border:0;border-radius:9px;
+  padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit}
+#vMsg{font-size:11px;color:var(--sub);margin-top:5px;line-height:1.5}
+.knote{background:var(--fl);border-radius:10px;padding:10px 13px;margin-top:8px;
+  font-size:11px;line-height:1.75;color:#1f5c3e}
+.knote a{color:var(--b);font-weight:700}
+.spd-wrap{display:flex;background:var(--line2);border-radius:12px;padding:3px;gap:2px;margin-top:4px}
+.spd{flex:1;border:0;border-radius:9px;padding:9px 2px;font-size:11px;font-weight:700;
+  cursor:pointer;text-align:center;background:transparent;color:var(--sub);
+  transition:.13s;font-family:inherit;line-height:1.2}
+.spd small{display:block;font-size:9px;font-weight:500;opacity:.7;margin-top:1px}
+.spd.on{background:#fff;color:var(--f);box-shadow:0 1px 6px rgba(0,0,0,.11)}
 
-/* ── CARDS ── */
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--pill);
-  margin:12px 14px;box-shadow:0 2px 10px rgba(20,12,4,.07);overflow:hidden}
-.card-pad{padding:16px}
-.card-title{font-size:11px;font-weight:900;text-transform:uppercase;
-  letter-spacing:.07em;color:var(--sub);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+/* CHROME WARNING */
+.chrome-warn{background:#fff8e6;border:1.5px solid #e8c030;border-radius:14px;
+  padding:13px 16px;margin:14px 16px 0;font-size:13px;color:#5a440a;line-height:1.65;display:none}
+.chrome-warn b{font-weight:700}
 
-/* ── BUTTONS ── */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;
-  border:0;border-radius:11px;padding:11px 16px;font-weight:800;font-size:14px;
-  cursor:pointer;transition:opacity .12s,transform .1s;-webkit-font-smoothing:antialiased}
+/* CARDS */
+.card{background:var(--card);border-radius:var(--r20);border:1px solid rgba(0,0,0,.06);
+  margin:14px 16px;box-shadow:var(--sh);overflow:hidden}
+.cp{padding:18px 20px}
+.ctitle{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:14px;
+  padding-left:12px;border-left:3px solid var(--f);border-radius:1px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;
+  flex-direction:column;border:0;border-radius:var(--r14);padding:12px 16px;
+  font-weight:700;font-size:14px;cursor:pointer;transition:.12s;
+  font-family:inherit;letter-spacing:-.01em;line-height:1.3}
 .btn:active{transform:scale(.96)}
-.btn:disabled{opacity:.35;pointer-events:none}
-.btn-g{background:var(--g);color:#fff}
-.btn-o{background:var(--o);color:#fff}
-.btn-b{background:var(--b);color:#fff}
-.btn-ghost{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
-.btn-sm{padding:8px 13px;font-size:12px;border-radius:10px}
-.btn-full{width:100%}
-.btn-row{display:flex;gap:8px;flex-wrap:wrap}
-.btn-grid{display:grid;gap:8px}
-.btn-grid-2{grid-template-columns:1fr 1fr}
-.btn-grid-3{grid-template-columns:1fr 1fr 1fr}
+.btn:disabled{opacity:.32;pointer-events:none}
+.btn-f{background:var(--f);color:#fff;box-shadow:0 4px 14px rgba(27,67,50,.22)}
+.btn-o{background:var(--o);color:#fff;box-shadow:0 4px 14px rgba(192,86,33,.18)}
+.btn-b{background:var(--b);color:#fff;box-shadow:0 4px 14px rgba(30,58,95,.18)}
+.btn-g{background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.btn-sm{padding:9px 13px;font-size:12px;border-radius:11px;flex-direction:row}
+.btn-full{width:100%;justify-content:center}
+.bsub{font-size:10px;font-weight:500;opacity:.75;margin-top:1px}
+.brow{display:flex;gap:8px;flex-wrap:wrap}
+.bg2{display:grid;gap:9px;grid-template-columns:1fr 1fr}
+.bg3{display:grid;gap:8px;grid-template-columns:1fr 1fr 1fr}
 
-/* ── FORMS ── */
-select,input[type="text"],input[type="password"],textarea{
-  width:100%;border:1.5px solid var(--line);background:#faf8f5;
-  border-radius:11px;padding:10px 13px;font-size:14px;color:var(--ink);
-  outline:none;font-family:inherit;appearance:none;-webkit-appearance:none}
-select:focus,input:focus,textarea:focus{border-color:var(--g);background:#fff}
-textarea{min-height:76px;resize:vertical;line-height:1.6}
+/* FORMS */
+select,input[type=text],input[type=password],textarea{
+  width:100%;border:1.5px solid var(--line);background:var(--surf);border-radius:11px;
+  padding:10px 13px;font-size:14px;color:var(--ink);outline:none;
+  font-family:inherit;appearance:none;-webkit-appearance:none;transition:.13s}
+select:focus,input:focus,textarea:focus{border-color:var(--f);background:#fff}
+textarea{min-height:78px;resize:vertical;line-height:1.65}
 .field{margin-bottom:10px}
-.field:last-child{margin-bottom:0}
 
-/* ── AI GENERATE ── */
-.ai-gen-card{background:linear-gradient(135deg,#edf6f0,#e4f0ea);
-  border:1.5px solid rgba(58,102,81,.2);border-radius:var(--pill);
-  margin:12px 14px;padding:16px;box-shadow:0 2px 10px rgba(20,12,4,.05)}
-.ai-gen-header{display:flex;align-items:center;gap:8px;margin-bottom:14px}
-.ai-gen-header h2{font-size:15px;font-weight:900}
-.new-badge{background:var(--g);color:#fff;font-size:10px;font-weight:800;
-  padding:2px 7px;border-radius:999px;letter-spacing:.04em}
-.part-row{display:flex;gap:8px;align-items:center;margin-bottom:10px}
-.part-row select{flex:0 0 auto;width:auto;padding:9px 12px}
-.gen-result{margin-top:12px}
-.gen-preview{background:#fff;border:1.5px solid rgba(58,102,81,.2);border-radius:12px;
-  padding:14px;font-family:Georgia,serif;font-size:15px;line-height:1.85;color:#1a120a}
-.gen-actions{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px}
-.loader{display:flex;align-items:center;gap:10px;padding:16px;
-  background:#fff;border-radius:12px;font-size:13px;color:var(--g);font-weight:700}
-.spin{width:18px;height:18px;border:2px solid rgba(58,102,81,.2);
-  border-top-color:var(--g);border-radius:50%;animation:spin .75s linear infinite;flex-shrink:0}
+/* TAGS */
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px}
+.tag{border-radius:999px;padding:5px 11px;font-size:11px;font-weight:700;letter-spacing:.02em}
+.tg{background:var(--fl);color:var(--fm)}.tb{background:var(--bl);color:var(--b)}
+.to{background:var(--ol);color:#8a3d18}.tai{background:#f3eaf9;color:#5e2d7a}
+
+/* Q DISPLAY */
+.qtext{font-size:21px;font-weight:800;line-height:1.32;letter-spacing:-.03em;margin-bottom:13px}
+.abody{font-family:Georgia,serif;font-size:16px;line-height:1.95;color:#201810}
+.abody mark{background:linear-gradient(120deg,#fff8d0,#fff3a0);border-radius:4px;padding:1px 3px}
+.etog{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;
+  border-top:1px solid var(--line2);font-size:13px;font-weight:600;color:var(--sub);
+  background:none;border-left:0;border-right:0;border-bottom:0;border-radius:0;
+  box-shadow:none;width:100%;text-align:left;font-family:inherit;cursor:pointer;transition:.12s}
+.etog:active{background:rgba(0,0,0,.02)}
+.chev{transition:transform .22s;font-size:11px;color:var(--sub2)}
+.chev.open{transform:rotate(180deg)}
+.extra{padding:13px 20px 16px;display:none;border-top:1px solid var(--line2)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.mbox{background:var(--surf);border:1px solid var(--line2);border-radius:13px;padding:13px}
+.mbox h4{font-size:10px;font-weight:700;color:var(--sub2);text-transform:uppercase;
+  letter-spacing:.08em;margin-bottom:8px}
+.mbox ul{margin-left:14px;font-size:12px;line-height:1.85;color:var(--sub)}
+
+/* AI GEN */
+.aig{background:linear-gradient(145deg,#eef7f2,#e5f1eb);border:1.5px solid rgba(45,106,79,.18);
+  border-radius:var(--r20);margin:14px 16px;padding:18px 20px;box-shadow:var(--sh)}
+.aig h2{font-size:16px;font-weight:800;letter-spacing:-.03em}
+.aig-hd{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.nbadge{background:var(--f);color:#fff;font-size:10px;font-weight:700;
+  padding:3px 9px;border-radius:999px;letter-spacing:.05em}
+.prow{display:flex;gap:8px;margin-bottom:10px;align-items:stretch}
+.prow select{flex:0 0 auto;width:auto;padding:10px 13px;font-size:13px}
+.gen-prev{background:#fff;border:1.5px solid rgba(45,106,79,.15);border-radius:13px;
+  padding:15px 17px;font-family:Georgia,serif;font-size:15px;line-height:1.9;color:#1a120a;margin-top:11px}
+.gen-acts{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px}
+.ldr{display:flex;align-items:center;gap:10px;padding:14px;background:#fff;
+  border-radius:12px;font-size:13px;color:var(--f);font-weight:600;margin-top:11px}
+.spin{width:18px;height:18px;border:2px solid rgba(45,106,79,.18);
+  border-top-color:var(--f);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ── QUESTION SELECTOR ── */
-.q-sel-inner{display:flex;flex-direction:column;gap:8px;padding:14px}
-.q-sel-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+/* PRACTICE CARD */
+.pcard{background:var(--card);border-radius:var(--r20);border:1.5px solid rgba(27,67,50,.16);
+  margin:14px 16px;overflow:hidden;box-shadow:0 4px 24px rgba(30,20,10,.09)}
+.ptop{background:linear-gradient(135deg,#f3faf6,#e9f4ee);padding:13px 20px 11px;
+  border-bottom:1px solid rgba(27,67,50,.08)}
+.prow2{display:flex;align-items:center;gap:11px;margin-bottom:5px}
+.pctr{font-size:12px;font-weight:800;color:var(--f);flex-shrink:0}
+.pbar{flex:1;height:5px;background:rgba(27,67,50,.1);border-radius:999px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,var(--fm),var(--f));border-radius:999px;transition:width .3s}
+.pst{font-size:13px;color:var(--sub);font-weight:500;line-height:1.4}
+.sent{padding:24px 20px 18px;font-family:Georgia,serif;font-size:22px;line-height:1.75;
+  min-height:90px;word-break:break-word;color:var(--ink);border-bottom:1px solid var(--line2)}
+.pctrl{padding:15px 20px;display:flex;flex-direction:column;gap:10px}
 
-/* ── Q+A DISPLAY ── */
-.qa-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-.tag{border-radius:999px;padding:4px 10px;font-size:11px;font-weight:800}
-.tag-g{background:#e2f0e8;color:#2d5e46}.tag-b{background:#e2eaf4;color:#2a4870}
-.tag-o{background:#f5e8da;color:#7a3a14}.tag-ai{background:#f3e8f8;color:#5e2d7a}
-.q-text{font-size:20px;font-weight:900;line-height:1.3;letter-spacing:-.02em;margin-bottom:12px}
-.ans-body{font-family:Georgia,serif;font-size:16px;line-height:1.9;color:#201810}
-.ans-body mark{background:#fff5a0;border-radius:3px;padding:0 2px}
-.extras-toggle{display:flex;align-items:center;justify-content:space-between;
-  padding:12px 14px;border-top:1px solid var(--line);cursor:pointer;
-  font-size:13px;font-weight:800;color:var(--sub);background:none;border-left:0;border-right:0;border-bottom:0;border-radius:0;box-shadow:none;width:100%;text-align:left}
-.extras-toggle:active{background:rgba(0,0,0,.02)}
-.chev{transition:transform .2s;font-size:11px;color:var(--sub)}
-.chev.open{transform:rotate(180deg)}
-.extras{padding:12px 14px 14px;display:none;border-top:1px solid var(--line)}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.mini-box{background:#faf8f5;border:1px solid var(--line);border-radius:11px;padding:12px}
-.mini-box h4{font-size:11px;font-weight:900;color:var(--sub);text-transform:uppercase;letter-spacing:.05em;margin-bottom:7px}
-.mini-box ul{margin-left:14px;font-size:12px;line-height:1.8;color:var(--sub)}
-
-/* ── PRACTICE CARD ── */
-.practice-card{background:var(--card);border:2px solid rgba(58,102,81,.22);
-  border-radius:var(--pill);margin:12px 14px;overflow:hidden;
-  box-shadow:0 4px 18px rgba(20,12,4,.09)}
-.prac-top{background:linear-gradient(135deg,#f6faf7,#edf4ef);padding:12px 16px 10px;
-  border-bottom:1px solid rgba(58,102,81,.1)}
-.prog-row{display:flex;align-items:center;gap:10px;margin-bottom:4px}
-.prog-ctr{font-size:12px;font-weight:900;color:var(--g);flex-shrink:0}
-.prog-bar{flex:1;height:4px;background:rgba(58,102,81,.12);border-radius:999px;overflow:hidden}
-.prog-fill{height:100%;background:var(--g);border-radius:999px;transition:width .3s}
-.pstate{font-size:11px;color:var(--sub)}
-
-.sent-display{padding:22px 16px 16px;font-family:Georgia,serif;font-size:21px;
-  line-height:1.72;min-height:88px;word-break:break-word}
-/* liaison marks inline */
-.lm-cv{border-bottom:2.5px solid var(--g);border-radius:2px;background:rgba(58,102,81,.06)}
-.lm-lr{border-bottom:2.5px solid var(--b);border-radius:2px;background:rgba(50,83,128,.06)}
-.lm-wk{border-bottom:2.5px dashed var(--o);border-radius:2px}
-
-.prac-controls{padding:14px 16px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px}
-
-/* ── LIAISON SECTION ── */
-.liaison-section{border-top:1px solid var(--line)}
-.liaison-toggle-btn{width:100%;display:flex;align-items:center;justify-content:space-between;
-  padding:12px 16px;background:none;border:0;font-size:13px;font-weight:800;
-  color:var(--ink);cursor:pointer;text-align:left;box-shadow:none;border-radius:0}
-.liaison-toggle-btn:active{background:rgba(0,0,0,.03)}
-.liaison-body{padding:12px 16px 14px;display:none}
-.lcard{display:flex;align-items:flex-start;gap:10px;padding:10px 0;
-  border-bottom:1px solid var(--line)}
-.lcard:last-child{border-bottom:none;padding-bottom:0}
-.lbadge{border-radius:999px;padding:3px 8px;font-size:10px;font-weight:800;
-  white-space:nowrap;margin-top:2px;flex-shrink:0}
-.lcard-info{flex:1;min-width:0}
-.lcard-pair{font-size:13px;font-weight:800;margin-bottom:2px}
-.lcard-desc{font-size:11px;color:var(--sub);line-height:1.4}
-.lcard-phone{font-family:monospace;font-size:10px;color:var(--b);margin-top:2px}
-.lcard-btns{display:flex;flex-direction:column;gap:4px;flex-shrink:0}
-
-/* ── SENTENCE LIST ── */
-.sent-list{border-top:1px solid var(--line)}
-.sent-item{display:flex;align-items:center;gap:10px;padding:11px 16px;
-  border-bottom:1px solid var(--line);cursor:pointer;transition:background .1s}
-.sent-item:hover,.sent-item.active{background:rgba(58,102,81,.05)}
-.sent-item.active .snm{background:var(--g);color:#fff}
-.sent-item:last-child{border-bottom:none}
-.snm{width:24px;height:24px;border-radius:50%;background:#e4ede8;color:var(--g);
-  font-size:11px;font-weight:900;display:grid;place-items:center;flex-shrink:0}
-.stxt{font-size:13px;line-height:1.4;flex:1;color:var(--ink)}
-.show-more-btn{display:block;width:100%;padding:10px 16px;
-  font-size:12px;font-weight:800;color:var(--g);background:#faf8f5;
-  border:0;border-top:1px solid var(--line);cursor:pointer;text-align:center;border-radius:0;box-shadow:none}
-
-/* ── SCORE ── */
-.score-row{display:flex;gap:14px;align-items:flex-start;margin-bottom:12px}
-.score-ring{width:90px;height:90px;border-radius:50%;flex-shrink:0;
-  background:conic-gradient(var(--g) 0deg,var(--g) var(--d,0deg),var(--line) var(--d,0deg));
+/* INLINE SCORE */
+.iscore{border-top:2px solid var(--fl);background:var(--surf);padding:18px 20px 20px;display:none}
+.iscore-hd{font-size:13px;font-weight:700;color:var(--f);margin-bottom:13px;
+  display:flex;align-items:center;gap:8px}
+.srow{display:flex;gap:14px;align-items:flex-start;margin-bottom:12px}
+.mring{width:78px;height:78px;border-radius:50%;flex-shrink:0;
+  background:conic-gradient(var(--f) 0deg,var(--f) var(--d,0deg),var(--line2) var(--d,0deg));
   display:grid;place-items:center;position:relative}
-.score-ring::before{content:"";position:absolute;width:70px;height:70px;
-  border-radius:50%;background:var(--card)}
-.snr{position:relative;font-size:26px;font-weight:950}
-.score-meta{flex:1;min-width:0}
-.score-lv{font-size:18px;font-weight:900;margin-bottom:3px}
-.score-hint{font-size:12px;color:var(--sub);line-height:1.5}
-.tbox{background:#faf8f5;border:1.5px dashed var(--line);border-radius:12px;
-  padding:12px;font-size:13px;line-height:1.6;color:#302820;min-height:68px;
-  white-space:pre-wrap}
-
-/* Dimension bars */
-.dbar{margin-bottom:6px}
-.dbar-row{display:flex;align-items:center;gap:8px}
-.dbar-lbl{font-size:11px;font-weight:800;color:var(--sub);width:56px;flex-shrink:0}
-.dbar-bg{flex:1;height:6px;background:var(--line);border-radius:999px;overflow:hidden}
-.dbar-fill{height:100%;border-radius:999px;transition:width .75s ease;width:0}
-.dbar-pct{font-size:11px;font-weight:900;width:30px;text-align:right;flex-shrink:0}
-.dbar-tip{font-size:11px;color:var(--sub);padding-left:64px;line-height:1.4;margin-top:2px}
-
-/* Steps */
-.steps-wrap{background:linear-gradient(135deg,#f6faf7,#edf4f0);
-  border:1px solid rgba(58,102,81,.15);border-radius:12px;padding:13px;margin-top:12px}
-.steps-title{font-size:12px;font-weight:900;color:var(--g);margin-bottom:10px}
+.mring::before{content:"";position:absolute;width:60px;height:60px;border-radius:50%;background:var(--surf)}
+.mnum{position:relative;font-size:24px;font-weight:800}
+.mmeta{flex:1;min-width:0}
+.mlv{font-size:16px;font-weight:800;margin-bottom:5px}
+.tbox{background:#fff;border:1.5px dashed var(--line);border-radius:12px;padding:12px;
+  font-size:13px;line-height:1.65;color:#302820;min-height:52px;white-space:pre-wrap}
+.dbar{margin-bottom:7px}
+.drow{display:flex;align-items:center;gap:9px}
+.dlb{font-size:12px;font-weight:700;color:var(--sub);width:58px;flex-shrink:0}
+.dbg{flex:1;height:6px;background:var(--line2);border-radius:999px;overflow:hidden}
+.dfl{height:100%;border-radius:999px;transition:width .75s ease;width:0}
+.dpc{font-size:12px;font-weight:800;width:34px;text-align:right;flex-shrink:0}
+.dtp{font-size:12px;color:var(--sub);padding-left:67px;line-height:1.45;margin-top:3px}
+.swrap{background:var(--fl);border:1px solid rgba(27,67,50,.12);border-radius:15px;
+  padding:15px 17px;margin-top:13px}
+.stitle{font-size:12px;font-weight:800;color:var(--f);margin-bottom:11px}
 .step{display:flex;gap:9px;align-items:flex-start;margin-bottom:9px}
 .step:last-child{margin-bottom:0}
-.step-n{width:21px;height:21px;border-radius:50%;background:var(--g);color:#fff;
-  font-size:11px;font-weight:900;display:grid;place-items:center;flex-shrink:0;margin-top:1px}
-.step-t{font-size:13px;line-height:1.5}
+.sn{width:22px;height:22px;border-radius:50%;background:var(--f);color:#fff;
+  font-size:11px;font-weight:800;display:grid;place-items:center;flex-shrink:0;margin-top:2px}
+.st{font-size:13px;line-height:1.55;font-weight:500}
+.missed{display:flex;flex-wrap:wrap;gap:5px;margin-top:11px}
+.mw{background:var(--ol);color:#8a3818;border-radius:999px;padding:5px 10px;
+  font-size:11px;font-weight:600;cursor:pointer;border:1px solid rgba(192,86,33,.2)}
+.mw:active{opacity:.65}
 
-/* Missed words */
-.missed{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
-.mw{background:#fce8df;color:#843218;border-radius:999px;padding:4px 9px;
-  font-size:11px;cursor:pointer;border:1px solid #f2ccb6}
-.mw:active{opacity:.7}
+/* LIAISON */
+.lsec{border-top:1px solid var(--line2)}
+.ltog{width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:13px 20px;background:none;border:0;font-size:14px;font-weight:700;
+  color:var(--ink);cursor:pointer;text-align:left;box-shadow:none;border-radius:0;
+  font-family:inherit;transition:.12s}
+.ltog:active{background:rgba(0,0,0,.02)}
+.lbody{padding:10px 20px 16px;display:none}
+.lnote{font-size:12px;color:var(--sub);margin-bottom:12px;line-height:1.6}
+.lcard{display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-bottom:1px solid var(--line2)}
+.lcard:last-child{border-bottom:none;padding-bottom:0}
+.lbg{border-radius:999px;padding:3px 9px;font-size:10px;font-weight:700;white-space:nowrap;margin-top:2px;flex-shrink:0}
+.linfo{flex:1;min-width:0}
+.lpair{font-size:13px;font-weight:700;margin-bottom:2px}
+.ldesc{font-size:11px;color:var(--sub);line-height:1.45}
+.lph{font-family:'Courier New',monospace;font-size:10px;color:var(--b);margin-top:2px}
+.lbtns{display:flex;flex-direction:column;gap:4px;flex-shrink:0}
 
-/* AI deep analysis */
-.ai-card{background:linear-gradient(135deg,#edf6f0,#e4f0ea);
-  border:1.5px solid rgba(58,102,81,.18);border-radius:12px;padding:13px;margin-top:12px}
-.ai-ll-item{display:flex;gap:9px;padding:8px 0;border-bottom:1px solid rgba(58,102,81,.1);align-items:flex-start}
-.ai-ll-item:last-child{border-bottom:none;padding-bottom:0}
-.ai-encourage{background:linear-gradient(135deg,#e0ede6,#d8e9e0);border-radius:10px;
-  padding:10px;text-align:center;font-size:13px;font-weight:800;color:#2a5240;margin-top:10px}
+/* SENT LIST */
+.slist{border-top:1px solid var(--line2)}
+.slbl{padding:10px 20px 5px;font-size:12px;color:var(--sub);font-weight:600;border-top:1px solid var(--line2)}
+.si{display:flex;align-items:center;gap:11px;padding:12px 20px;border-bottom:1px solid var(--line2);cursor:pointer;transition:.11s}
+.si:hover,.si.on{background:rgba(27,67,50,.04)}
+.si.on .snm{background:var(--f);color:#fff}
+.si:last-child{border-bottom:none}
+.snm{width:26px;height:26px;border-radius:50%;background:var(--fl);color:var(--f);
+  font-size:11px;font-weight:800;display:grid;place-items:center;flex-shrink:0}
+.stx{font-size:13px;line-height:1.4;flex:1;color:var(--ink);font-weight:500}
+.sm-btn{display:block;width:100%;padding:11px 20px;font-size:12px;font-weight:700;color:var(--f);
+  background:var(--surf);border:0;border-top:1px solid var(--line2);cursor:pointer;
+  text-align:center;border-radius:0;box-shadow:none;font-family:inherit;transition:.12s}
+.sm-btn:hover{background:var(--fl)}
 
-/* ── FLOATING BOTTOM BAR ── */
-.fab{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:700px;
-  background:rgba(255,255,255,.97);backdrop-filter:blur(16px);
-  border-top:1px solid var(--line);padding:10px 16px;
-  display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;
-  box-shadow:0 -4px 20px rgba(20,12,4,.12);z-index:90}
+/* FULL SCORE */
+.sring-lg{width:92px;height:92px;border-radius:50%;flex-shrink:0;
+  background:conic-gradient(var(--f) 0deg,var(--f) var(--d,0deg),var(--line2) var(--d,0deg));
+  display:grid;place-items:center;position:relative}
+.sring-lg::before{content:"";position:absolute;width:72px;height:72px;border-radius:50%;background:var(--card)}
+.snum-lg{position:relative;font-size:28px;font-weight:800}
+.slv-lg{font-size:19px;font-weight:800;margin-bottom:4px}
+.shint{font-size:13px;color:var(--sub);line-height:1.55}
 
-/* ── API NOTICE ── */
-.api-notice{background:#fffaeb;border:1.5px solid #f0d060;border-radius:12px;
-  padding:12px 14px;font-size:12px;line-height:1.6;color:#60480e;margin:12px 14px 0}
-.api-notice a{color:var(--b);font-weight:700}
+/* AI CARD */
+.aicard{background:var(--fl);border:1.5px solid rgba(27,67,50,.14);border-radius:15px;padding:15px 17px;margin-top:13px}
+.aihead{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:14px;font-weight:700}
+.ail{display:flex;gap:9px;padding:9px 0;border-bottom:1px solid rgba(27,67,50,.08);align-items:flex-start}
+.ail:last-child{border-bottom:none;padding-bottom:0}
+.aienc{background:linear-gradient(135deg,#d4eddf,#c8e6d4);border-radius:11px;padding:11px;
+  text-align:center;font-size:13px;font-weight:700;color:#1b4332;margin-top:11px}
+.aipron{background:#fff;border:1px solid var(--line2);border-radius:11px;padding:11px;margin:10px 0}
+.aipron p:first-child{font-size:11px;font-weight:700;color:var(--sub);margin-bottom:4px}
+.aipron p:last-child{font-size:13px}
 
-/* ── RESPONSIVE ── */
+/* SCORE EXPLANATION BOX */
+.score-note{background:#fffbf0;border:1px solid #e8d060;border-radius:11px;
+  padding:11px 14px;font-size:12px;color:#5a4a10;line-height:1.65;margin-top:11px}
+
+/* FAB */
+.fab{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:720px;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(18px);
+  border-top:1px solid rgba(224,214,204,.8);padding:11px 18px 16px;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;
+  box-shadow:0 -6px 28px rgba(30,20,10,.1);z-index:90}
+
+/* MIC ERROR */
+.merr{background:#fff5f5;border:1.5px solid #f0b8b8;border-radius:12px;
+  padding:13px 15px;font-size:13px;line-height:1.7;color:#7a2020;margin-top:10px}
+.merr b{display:block;margin-bottom:3px}
+
+/* API NOTICE */
+.apinote{background:#fffbf0;border:1.5px solid #e8c030;border-radius:13px;
+  padding:12px 15px;font-size:12px;color:#5a4510;margin:13px 16px 0;
+  font-weight:500;line-height:1.65;display:none}
+.apinote a{color:var(--b);font-weight:700}
+
+/* RESPONSIVE */
 @media(max-width:480px){
   .two{grid-template-columns:1fr}
-  .sent-display{font-size:18px;padding:18px 14px 14px}
-  .q-text{font-size:18px}
-  .score-ring{width:78px;height:78px}
-  .score-ring::before{width:60px;height:60px}
-  .snr{font-size:22px}
-  .score-lv{font-size:16px}
-  .btn-grid-3{grid-template-columns:1fr 1fr 1fr}
+  .sent{font-size:19px;padding:20px 16px 16px}
+  .qtext{font-size:18px}
+  .sring-lg{width:80px;height:80px}
+  .sring-lg::before{width:62px;height:62px}
+  .snum-lg{font-size:24px}
+  .card,.aig,.pcard{margin:11px 12px}
 }
-@media(min-width:640px){
-  .prac-controls .btn-grid-2{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="hdr">
-  <div class="logo">雅思口语<em>跟读</em></div>
-  <div class="hdr-btns">
-    <button class="btn btn-ghost btn-sm" onclick="unlockVoice()">解锁发音</button>
-    <button class="btn btn-ghost btn-sm" onclick="toggleDrawer()">⚙</button>
+  <div>
+    <span class="logo">雅思口语<em>跟读</em><span class="badge-free">免费版</span></span>
+  </div>
+  <div class="hdr-r">
+    <button class="btn btn-g btn-sm" onclick="unlockVoice()">🔊 解锁发音</button>
+    <button class="btn btn-g btn-sm" onclick="toggleDrw()">⚙ 设置</button>
   </div>
 </header>
 
-<!-- SETTINGS DRAWER -->
-<div class="drawer" id="drawer">
-  <div class="drawer-inner">
-    <label>Groq API Key <span style="font-weight:400;color:var(--sub)">（完全免费，无需绑卡，每天14000次）</span></label>
-    <div class="key-wrap">
-      <input type="password" id="apiKeyInput" placeholder="gsk_..." oninput="saveKey()">
-      <button class="key-save" onclick="saveKey();alert('已保存')">保存</button>
+<div class="drawer" id="drw">
+  <div class="drw">
+    <span class="dlbl">Groq API Key <span style="text-transform:none;letter-spacing:0;font-weight:500;color:var(--sub2)">（完全免费，无需绑卡）</span></span>
+    <div class="kwrap">
+      <input type="password" id="apiKey" placeholder="gsk_..." oninput="saveKey()">
+      <button class="ksave" onclick="saveKey();alert('已保存')">保存</button>
     </div>
-    <div id="keyStatus" style="font-size:11px;color:var(--sub);margin-top:5px"></div>
-    <div style="background:#e8f4ec;border-radius:9px;padding:9px 10px;margin-top:6px;font-size:11px;line-height:1.7;color:#2d5a3d">
-      🆓 <b>如何免费获取（2分钟）：</b><br>
-      1. 打开 <a href="https://console.groq.com/keys" target="_blank" style="color:var(--b);font-weight:700">console.groq.com/keys</a><br>
-      2. 用 Google 或 GitHub 账号登录（无需绑卡）<br>
-      3. 点 <b>Create API Key</b>，复制 <b>gsk_</b> 开头的 Key<br>
-      4. 粘贴到上方输入框，点保存
-    </div>
-    <label>英式声音</label>
+    <div id="kSt" style="font-size:11px;color:var(--sub);margin-top:5px"></div>
+    <div class="knote">🆓 2分钟免费获取：<a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a>（Google/GitHub登录）→ Create API Key → 复制 gsk_ 开头的 Key</div>
+
+    <span class="dlbl">英式声音 <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--sub2)">— 录音需用 Chrome</span></span>
     <select id="vSel"></select>
-    <div id="vMsg" style="font-size:11px;color:var(--sub);margin-top:5px"></div>
-    <label>朗读速度 <span id="rateV" style="color:var(--g);font-weight:900">0.84</span></label>
-    <div class="rate-row">
-      <input type="range" id="rate" min="0.68" max="1.08" value="0.84" step="0.01" oninput="rateV.textContent=parseFloat(this.value).toFixed(2)">
+    <div id="vMsg"></div>
+
+    <span class="dlbl">朗读速度 — <span id="rV" style="color:var(--f);font-weight:700;text-transform:none;letter-spacing:0">0.8×</span> <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--sub2)">（0.8× ≈ 雅思听力标准速）</span></span>
+    <div class="spd-wrap">
+      <button class="spd" onclick="setRate(0.5)">0.5×<small>精学</small></button>
+      <button class="spd on" onclick="setRate(0.8)">0.8×<small>雅思✓</small></button>
+      <button class="spd" onclick="setRate(1.0)">1.0×<small>自然</small></button>
+      <button class="spd" onclick="setRate(1.3)">1.3×<small>快</small></button>
+      <button class="spd" onclick="setRate(1.6)">1.6×<small>挑战</small></button>
     </div>
-    <div class="btn-row" style="margin-top:10px">
-      <button class="btn btn-ghost btn-sm" onclick="loadVoices()">刷新声音</button>
-      <button class="btn btn-ghost btn-sm" onclick="stopSpeech()">停止朗读</button>
+
+    <div class="brow" style="margin-top:13px">
+      <button class="btn btn-g btn-sm" onclick="loadVoices()">刷新声音列表</button>
+      <button class="btn btn-g btn-sm" onclick="stopSpeech()">■ 停止朗读</button>
     </div>
-    <p style="font-size:11px;color:var(--sub);margin-top:10px;line-height:1.6">
-      推荐 Chrome/Edge。Safari 朗读可用但录音识别受限。
+    <p style="font-size:11px;color:var(--sub2);margin-top:10px;line-height:1.65">
+      🎙 <b>录音需要 Chrome 或 Edge</b>，Safari 不支持语音识别。<br>
+      🔊 播放和连读分析在 Safari 也完全正常。<br>
+      📱 手机推荐 Chrome 浏览器。
     </p>
   </div>
 </div>
 
-<!-- API NOTICE (shows when on GitHub Pages without key) -->
-<div class="api-notice" id="apiNotice" style="display:none">
-  🔑 AI功能需要免费的 Groq Key（无需绑卡）。点右上角 <b>⚙</b>，里面有4步图文教程。
-  <a href="https://console.groq.com/keys" target="_blank">→ 一键跳转获取</a>（Google/GitHub登录，完全免费）
+<div class="apinote" id="apiNote">
+  🔑 AI功能需要免费 Groq Key。点右上角 <b>⚙ 设置</b> → 填入Key → 保存。
+  <a href="https://console.groq.com/keys" target="_blank">→ 免费获取（Google账号，无需绑卡）</a>
 </div>
 
-<!-- ╔══ AI GENERATE ANSWER ══╗ -->
-<div class="ai-gen-card">
-  <div class="ai-gen-header">
+<!-- AI GENERATE -->
+<div class="aig">
+  <div class="aig-hd">
     <span style="font-size:20px">✨</span>
     <h2>AI 生成雅思答案</h2>
-    <span class="new-badge">NEW</span>
+    <span class="nbadge">NEW</span>
   </div>
   <div class="field">
-    <textarea id="aiQ" placeholder="输入任意雅思口语题，AI 生成 Band 7-8 标准答案再直接练习。
+    <textarea id="aiQ" placeholder="输入任意雅思口语题，AI 生成 Band 7-8 标准答案，直接加载练习。
 
-例如：Describe a time when you felt proud of yourself.
-例如：Do you prefer working alone or in a team?
-例如：Why do young people like following fashion trends?"></textarea>
+例：Describe a time when you felt proud of yourself.
+例：Do you prefer working alone or in a team?
+例：Why is it important to learn a foreign language?"></textarea>
   </div>
-  <div class="part-row">
+  <div class="prow">
     <select id="partPick">
       <option value="auto">自动识别题型</option>
-      <option value="1">Part 1（短回答）</option>
-      <option value="2">Part 2（话题卡）</option>
-      <option value="3">Part 3（深度讨论）</option>
+      <option value="1">Part 1 短回答</option>
+      <option value="2">Part 2 话题卡</option>
+      <option value="3">Part 3 深度讨论</option>
     </select>
-    <button class="btn btn-g btn-full" onclick="genAnswer()">✨ 生成并练习</button>
+    <button class="btn btn-f btn-full" onclick="genAnswer()">✨ 生成并练习</button>
   </div>
   <div id="genOut"></div>
 </div>
 
 <!-- QUESTION SELECTOR -->
 <div class="card">
-  <div class="q-sel-inner">
-    <p class="card-title">📚 题库选题</p>
-    <select id="partSel" onchange="filterQ()">
+  <div class="cp">
+    <p class="ctitle">从题库选题</p>
+    <select id="pSel" onchange="filterQ()" style="margin-bottom:9px">
       <option value="all">全部题型</option>
       <option value="Part 1">Part 1 日常问答</option>
       <option value="Part 2">Part 2 话题卡</option>
       <option value="Part 3">Part 3 深入讨论</option>
     </select>
     <select id="qSel" onchange="loadQ()"></select>
-    <div class="btn-row">
-      <button class="btn btn-ghost btn-sm" onclick="randomQ()">🎲 随机抽题</button>
-      <button class="btn btn-ghost btn-sm" onclick="copyAns()">📋 复制答案</button>
-      <button class="btn btn-ghost btn-sm" onclick="playFull()">🔊 听整段</button>
+    <div class="brow" style="margin-top:10px">
+      <button class="btn btn-g btn-sm" onclick="randQ()">🎲 随机抽题</button>
+      <button class="btn btn-g btn-sm" onclick="copyAns()">📋 复制答案</button>
+      <button class="btn btn-g btn-sm" onclick="playFull()">🔊 听整段</button>
     </div>
   </div>
 </div>
 
-<!-- Q+A DISPLAY -->
-<div class="card" id="qaCard">
-  <div class="card-pad">
-    <div class="qa-tags" id="tagRow">
-      <span class="tag tag-g" id="pTag"></span>
-      <span class="tag tag-b" id="tTag"></span>
-      <span class="tag tag-o" id="srcTag">题库</span>
+<!-- Q+A -->
+<div class="card">
+  <div class="cp">
+    <div class="tags" id="tags">
+      <span class="tag tg" id="pTag"></span>
+      <span class="tag tb" id="tTag"></span>
+      <span class="tag to" id="sTag">题库</span>
     </div>
-    <p class="q-text" id="qText"></p>
-    <div class="ans-body" id="ansText"></div>
+    <p class="qtext" id="qText"></p>
+    <div class="abody" id="ansText"></div>
   </div>
-  <button class="extras-toggle" onclick="toggleExtras()">
-    <span>可复用表达 &amp; 发音提醒</span>
-    <span class="chev" id="extChev">▾</span>
+  <button class="etog" onclick="toggleExtra()">
+    <span>可复用表达 &amp; 英式发音提醒</span>
+    <span class="chev" id="ec">▾</span>
   </button>
-  <div class="extras" id="extrasBox">
+  <div class="extra" id="eBox">
     <div class="two">
-      <div class="mini-box"><h4>可复用表达</h4><ul id="phrases"></ul></div>
-      <div class="mini-box"><h4>英式发音提醒</h4><ul id="prons"></ul></div>
+      <div class="mbox"><h4>可复用表达</h4><ul id="phrases"></ul></div>
+      <div class="mbox"><h4>英式发音提醒</h4><ul id="prons"></ul></div>
     </div>
   </div>
 </div>
 
-<!-- ╔══ PRACTICE CARD ══╗ -->
-<div class="practice-card">
-  <div class="prac-top">
-    <div class="prog-row">
-      <span class="prog-ctr" id="sctr">1 / 1</span>
-      <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+<!-- PRACTICE CARD -->
+<div class="pcard">
+  <div class="ptop">
+    <div class="prow2">
+      <span class="pctr" id="sctr">第 1 句 / 共 1 句</span>
+      <div class="pbar"><div class="pfill" id="pFill"></div></div>
     </div>
-    <p class="pstate" id="pstate">选择句子后点播放开始跟读</p>
+    <p class="pst" id="pSt">👇 点下方句子选择，然后点播放</p>
   </div>
 
-  <!-- Big sentence -->
-  <div class="sent-display" id="curSent">...</div>
+  <div class="sent" id="curSent">...</div>
 
-  <!-- Controls -->
-  <div class="prac-controls">
-    <div class="btn-grid btn-grid-2">
-      <button class="btn btn-g" onclick="playCur()">▶ 播放本句</button>
-      <button class="btn btn-ghost" onclick="playSlowCur()">🐢 慢速</button>
+  <div class="pctrl">
+    <div class="bg2">
+      <button class="btn btn-f" onclick="playCur()">▶ 播放本句<span class="bsub">听一遍，模仿语调</span></button>
+      <button class="btn btn-g" onclick="playSlowCur()">🐢 慢速播放<span class="bsub">0.5× 听清每个音</span></button>
     </div>
-    <div class="btn-grid btn-grid-2">
-      <button class="btn btn-o" onclick="recSent()">● 录本句评分</button>
-      <button class="btn btn-b" onclick="playPause()">▶ 播后跟读</button>
+    <div class="bg2">
+      <button class="btn btn-o" onclick="recSent()">● 录音评分<span class="bsub">说完自动打分</span></button>
+      <button class="btn btn-b" onclick="playPause()">▶ 播放后跟读<span class="bsub">播完留3秒</span></button>
     </div>
-    <div class="btn-grid btn-grid-3">
-      <button class="btn btn-ghost btn-sm" onclick="prevS()">← 上一句</button>
-      <button class="btn btn-ghost btn-sm" onclick="restartS()">↺ 重置</button>
-      <button class="btn btn-ghost btn-sm" onclick="nextS()">下一句 →</button>
+    <div class="bg3">
+      <button class="btn btn-g btn-sm" onclick="prevS()">← 上一句</button>
+      <button class="btn btn-g btn-sm" onclick="restartS()">↺ 从头开始</button>
+      <button class="btn btn-g btn-sm" onclick="nextS()">下一句 →</button>
     </div>
   </div>
 
-  <!-- LIAISON PANEL -->
-  <div class="liaison-section">
-    <button class="liaison-toggle-btn" onclick="toggleLiaison()">
-      <span>🔗 连读分析 <span id="lcnt" style="font-weight:400;color:var(--sub);font-size:12px"></span></span>
-      <span id="lchev" style="font-size:11px;color:var(--sub)">▾</span>
+  <!-- INLINE SCORE -->
+  <div class="iscore" id="iScore">
+    <div class="iscore-hd">✅ 本句评分结果</div>
+    <div class="srow">
+      <div class="mring" id="sRing" style="--d:0deg"><span class="mnum" id="sNum">--</span></div>
+      <div class="mmeta">
+        <div class="mlv" id="sLv">--</div>
+        <div class="tbox" id="sTrans" style="font-size:12px;min-height:46px">识别的英文会显示在这里</div>
+      </div>
+    </div>
+    <div class="score-note">📌 分数是把你说的和<b>标准答案</b>对比。练习模式不是考官打分——练到说顺比分数更重要。</div>
+    <div id="sDims" style="margin-top:12px">
+      <div class="dbar"><div class="drow"><span class="dlb">内容</span><div class="dbg"><div class="dfl" id="sd0f"></div></div><span class="dpc" id="sd0p">--%</span></div><p class="dtp" id="sd0t"></p></div>
+      <div class="dbar"><div class="drow"><span class="dlb">流利度</span><div class="dbg"><div class="dfl" id="sd1f"></div></div><span class="dpc" id="sd1p">--%</span></div><p class="dtp" id="sd1t"></p></div>
+      <div class="dbar"><div class="drow"><span class="dlb">完整度</span><div class="dbg"><div class="dfl" id="sd2f"></div></div><span class="dpc" id="sd2p">--%</span></div><p class="dtp" id="sd2t"></p></div>
+      <div class="dbar"><div class="drow"><span class="dlb">节奏感</span><div class="dbg"><div class="dfl" id="sd3f"></div></div><span class="dpc" id="sd3p">--%</span></div><p class="dtp" id="sd3t"></p></div>
+    </div>
+    <div id="sSteps" style="display:none">
+      <div class="swrap"><p class="stitle">🎯 本句练习任务</p><div id="sStepList"></div></div>
+    </div>
+    <div class="missed" id="sMissed"></div>
+    <div style="margin-top:12px">
+      <button class="btn btn-b btn-full btn-sm" id="sAiBtn" onclick="doAI('s')" disabled>🤖 AI深度分析（本句）</button>
+      <div id="sAiOut"></div>
+    </div>
+  </div>
+
+  <!-- LIAISON -->
+  <div class="lsec">
+    <button class="ltog" onclick="toggleL()">
+      <span>🔗 连读分析 <span id="lcnt" style="font-weight:500;color:var(--sub);font-size:12px"></span></span>
+      <span id="lchev" style="font-size:12px;color:var(--sub2)">▾ 点击展开</span>
     </button>
-    <div class="liaison-body" id="liaisonBody">
+    <div class="lbody" id="lBody">
+      <p class="lnote">以下是本句的连读点。点 <b>▶ 正常</b> 听连读效果，点 <b>▶ 慢速</b> 分辨每个音。</p>
       <div id="lcards"></div>
     </div>
   </div>
 
-  <!-- Sentence list -->
-  <div class="sent-list" id="sentList"></div>
+  <!-- SENT LIST -->
+  <div class="slist">
+    <p class="slbl">点任意句子切换练习 👇</p>
+    <div id="sentList"></div>
+  </div>
 </div>
 
-<!-- ╔══ SCORE CARD ══╗ -->
+<!-- FULL ANSWER SCORE -->
 <div class="card">
-  <div class="card-pad">
-    <p class="card-title">🎙 录音评分</p>
-
-    <div class="score-row">
-      <div class="score-ring" id="sring" style="--d:0deg">
-        <span class="snr" id="snr">--</span>
-      </div>
-      <div class="score-meta">
-        <div class="score-lv" id="slv">等待录音</div>
-        <p class="score-hint">在练习区录单句，或点下方录整段</p>
-      </div>
+  <div class="cp">
+    <p class="ctitle">整段答案评分</p>
+    <p style="font-size:13px;color:var(--sub);margin-bottom:14px;line-height:1.6">
+      练完所有句子后，录一遍完整答案看整体分数。<b>需要 Chrome 浏览器。</b>
+    </p>
+    <button class="btn btn-o btn-full" onclick="recFull()" style="font-size:15px;padding:16px">
+      ● 开始录整段答案
+      <span class="bsub">说完完整答案后点停止</span>
+    </button>
+    <div style="display:flex;gap:9px;margin-top:10px">
+      <button class="btn btn-g btn-sm" style="flex:1" onclick="stopRec()">■ 停止录音</button>
+      <button class="btn btn-g btn-sm" style="flex:1" onclick="resetFull()">↺ 清空</button>
     </div>
 
-    <div class="tbox" id="trans">点击"录本句评分"或"录整段"后，这里显示你说的英文。</div>
-
-    <div class="btn-row" style="margin-top:11px">
-      <button class="btn btn-o btn-sm" onclick="recFull()">● 录整段评分</button>
-      <button class="btn btn-ghost btn-sm" onclick="stopRec()">■ 停止</button>
-      <button class="btn btn-ghost btn-sm" onclick="resetScore()">↺ 清空</button>
-    </div>
-
-    <!-- 4 dimension bars (hidden until recording) -->
-    <div id="dimArea" style="display:none;margin-top:14px">
-      <div class="dbar">
-        <div class="dbar-row"><span class="dbar-lbl">内容</span><div class="dbar-bg"><div class="dbar-fill" id="d0f"></div></div><span class="dbar-pct" id="d0p">--</span></div>
-        <p class="dbar-tip" id="d0t"></p>
+    <div id="fScore" style="display:none;margin-top:16px">
+      <div class="srow">
+        <div class="sring-lg" id="fRing" style="--d:0deg"><span class="snum-lg" id="fNum">--</span></div>
+        <div class="mmeta">
+          <div class="slv-lg" id="fLv">--</div>
+          <p class="shint">整段答案综合评分</p>
+        </div>
       </div>
-      <div class="dbar">
-        <div class="dbar-row"><span class="dbar-lbl">流利度</span><div class="dbar-bg"><div class="dbar-fill" id="d1f"></div></div><span class="dbar-pct" id="d1p">--</span></div>
-        <p class="dbar-tip" id="d1t"></p>
+      <div class="tbox" id="fTrans" style="margin-bottom:12px">识别内容会显示在这里</div>
+      <div class="score-note">📌 分数对比标准答案。如果你说的是自己版本的答案，内容分会偏低——这是正常的。</div>
+      <div style="margin-top:12px">
+        <div class="dbar"><div class="drow"><span class="dlb">内容</span><div class="dbg"><div class="dfl" id="fd0f"></div></div><span class="dpc" id="fd0p">--%</span></div><p class="dtp" id="fd0t"></p></div>
+        <div class="dbar"><div class="drow"><span class="dlb">流利度</span><div class="dbg"><div class="dfl" id="fd1f"></div></div><span class="dpc" id="fd1p">--%</span></div><p class="dtp" id="fd1t"></p></div>
+        <div class="dbar"><div class="drow"><span class="dlb">完整度</span><div class="dbg"><div class="dfl" id="fd2f"></div></div><span class="dpc" id="fd2p">--%</span></div><p class="dtp" id="fd2t"></p></div>
+        <div class="dbar"><div class="drow"><span class="dlb">节奏感</span><div class="dbg"><div class="dfl" id="fd3f"></div></div><span class="dpc" id="fd3p">--%</span></div><p class="dtp" id="fd3t"></p></div>
       </div>
-      <div class="dbar">
-        <div class="dbar-row"><span class="dbar-lbl">完整度</span><div class="dbar-bg"><div class="dbar-fill" id="d2f"></div></div><span class="dbar-pct" id="d2p">--</span></div>
-        <p class="dbar-tip" id="d2t"></p>
+      <div id="fSteps" style="display:none">
+        <div class="swrap"><p class="stitle">🎯 整段练习任务</p><div id="fStepList"></div></div>
       </div>
-      <div class="dbar">
-        <div class="dbar-row"><span class="dbar-lbl">节奏感</span><div class="dbar-bg"><div class="dbar-fill" id="d3f"></div></div><span class="dbar-pct" id="d3p">--</span></div>
-        <p class="dbar-tip" id="d3t"></p>
+      <div class="missed" id="fMissed"></div>
+      <div style="margin-top:12px">
+        <button class="btn btn-b btn-full btn-sm" id="fAiBtn" onclick="doAI('f')" disabled>🤖 AI深度分析（整段）</button>
+        <div id="fAiOut"></div>
       </div>
-    </div>
-
-    <!-- Practice steps -->
-    <div id="stepsArea" style="display:none">
-      <div class="steps-wrap">
-        <p class="steps-title">🎯 本次练习任务（根据录音定制）</p>
-        <div id="stepsList"></div>
-      </div>
-    </div>
-
-    <!-- Missed words -->
-    <div class="missed" id="missedW"></div>
-
-    <!-- AI deep analysis -->
-    <div style="margin-top:14px">
-      <button class="btn btn-b btn-full" id="aiAnalBtn" onclick="runAI()" disabled>🤖 AI 深度连读分析</button>
-      <div id="aiOut"></div>
     </div>
   </div>
 </div>
 
-<!-- FLOATING ACTION BAR -->
+<!-- FAB -->
 <div class="fab">
-  <button class="btn btn-g" onclick="playCur()">▶ 播放</button>
+  <button class="btn btn-f" onclick="playCur()">▶ 播放</button>
   <button class="btn btn-o" onclick="recSent()">● 录音</button>
-  <button class="btn btn-ghost" onclick="nextS()">下一句 →</button>
+  <button class="btn btn-g" onclick="nextS()">下一句 →</button>
 </div>
 
 <script>
-// ══════════════════════════════════════════
-//  DATA
-// ══════════════════════════════════════════
+// ── DATA ─────────────────────────────────
 const DATA=[
 {part:"Part 1",topic:"Music",q:"Do you like listening to music?",
  answer:"Yes, I do. I usually listen to music when I am travelling or doing simple tasks at home. It helps me relax and, in a way, it changes my mood quite quickly. For example, when I feel stressed, I often play some upbeat pop songs, and they help me get out of that heavy feeling.",
@@ -491,7 +526,7 @@ const DATA=[
  pron:["music /ˈmjuːzɪk/：开头像 myoo","travelling or doing：or 弱读 /ə/","upbeat pop：两词都重读"]},
 {part:"Part 1",topic:"Hometown",q:"Do you like your hometown?",
  answer:"Yes, I do, although it is not a very big place. I like it because life there feels slower and more personal. People know each other, and small things, like buying breakfast near my home, can feel quite warm. I would not say it is exciting, but it gives me a strong sense of comfort.",
- phrases:["although it is not ...","life there feels slower","a strong sense of comfort","I would not say ..., but ..."],
+ phrases:["although it is not...","life there feels slower","a strong sense of comfort","I would not say..., but..."],
  pron:["hometown /ˈhəʊmtaʊn/：英式双元音","comfortable /ˈkʌmftəbəl/：中间弱读","although 后可短暂停顿"]},
 {part:"Part 1",topic:"Study",q:"Do you work or are you a student?",
  answer:"At the moment, I am a student, and I am trying to build stronger English skills for my future work. My daily routine is quite full, but I like learning things that can be used in real life. For me, English is not just a subject. It is more like a tool that can open up more choices.",
@@ -506,12 +541,12 @@ const DATA=[
  phrases:["on weekdays","gives us a reason to","talk properly","not only about taste"],
  pron:["prefer /prɪˈfɜː/：重音在后","weekdays 和 weekends 区分","share it with：连读"]},
 {part:"Part 2",topic:"A song",q:"Describe a song that brings back memories.",
- answer:"One song that brings back memories for me is a pop song my parents and I often played in the car when we travelled together. I do not remember every detail of those trips, but I remember the feeling very clearly. When the song came on, the car windows were sometimes open, and I could feel the wind on my face. It made the journey feel free and light. Now, when I hear the same song in daily life, I suddenly think of that road, that warm air, and that simple happy mood. It is interesting because the song itself may not be special to other people, but to me it feels like a small door to the past.",
- phrases:["brings back memories","remember the feeling very clearly","free and light","a small door to the past"],
- pron:["brings back memories：brings back 要有力量","travelled together：重音在 geth","a small door to the past：to 弱读"]},
+ answer:"One song that brings back memories for me is a pop song my parents and I often played in the car when we travelled together. I do not remember every detail of those trips, but I remember the feeling very clearly. When the song came on, the car windows were sometimes open, and I could feel the wind on my face. It made the journey feel free and light. Now, when I hear the same song in daily life, I suddenly think of that road, that warm air, and that simple happy mood.",
+ phrases:["brings back memories","remember the feeling very clearly","free and light","that simple happy mood"],
+ pron:["brings back memories：brings back 要有力量","travelled together：together 重音 geth","a small door to the past：to 弱读"]},
 {part:"Part 2",topic:"A quiet place",q:"Describe a quiet place you like to go to.",
- answer:"A quiet place I like to go to is a small park near my home. It is not famous, and there are no amazing views, but that is exactly why I like it. Most of the time, only a few people are there. Some are walking slowly, and some are sitting on benches. When I go there, I usually put my phone away and just walk for twenty or thirty minutes. The trees, the air, and the slow pace make me feel calmer. I especially like going there in the late afternoon, when the sunlight becomes soft and warm.",
- phrases:["that is exactly why I like it","put my phone away","the slow pace","a break from noise"],
+ answer:"A quiet place I like to go to is a small park near my home. It is not famous, and there are no amazing views, but that is exactly why I like it. Most of the time, only a few people are there. When I go there, I usually put my phone away and just walk for twenty or thirty minutes. The trees, the air, and the slow pace make me feel calmer. I especially like going there in the late afternoon, when the sunlight becomes soft and warm.",
+ phrases:["that is exactly why I like it","put my phone away","the slow pace","calmer"],
  pron:["quiet /ˈkwaɪət/：两音节","benches /ˈbentʃɪz/：ch 清楚","late afternoon：两词都有节奏"]},
 {part:"Part 3",topic:"Language",q:"Why do some people find it hard to speak a foreign language?",
  answer:"I think many people find it hard because they treat language as knowledge, not as a skill. They may know a lot of words and grammar rules, but they do not have enough practice using them in real time. Speaking also feels more stressful than reading or listening, because mistakes are heard immediately. In my opinion, the best way to improve is to start with simple answers, repeat useful sentence patterns, and slowly build fluency through practice.",
@@ -523,369 +558,242 @@ const DATA=[
  pron:["technology /tekˈnɒlədʒi/：重音在 no","dictionary /ˈdɪkʃənri/","consistently /kənˈsɪstəntli/"]}
 ];
 
-// ══════════════════════════════════════════
-//  STATE
-// ══════════════════════════════════════════
+// ── STATE ─────────────────────────────────
 let filtered=[...DATA],cur=DATA[0],sents=[],sidx=0;
 let voices=[],rec=null,recTarget='',t0=0,finalTxt='';
-let curLiaisons=[],liaisonOpen=false,extrasOpen=false;
-let showAllSents=false;
+let curRate=0.8,recMode='s',liaisonOpen=false,extraOpen=false,showAll=false;
+let curLiaisons=[];
 const $=id=>document.getElementById(id);
 
-// API Key storage (works in GitHub Pages; silently fails in artifact sandbox)
-const store={
-  get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},
-  set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}
-};
-function getKey(){return $('apiKeyInput').value.trim()||store.get('ielts_ak')||''}
-function saveKey(){
-  const k=$('apiKeyInput').value.trim();
-  if(k){store.set('ielts_ak',k);$('keyStatus').textContent='✓ Key 已保存到本地';$('keyStatus').style.color='var(--g)';}
-  else{store.set('ielts_ak','');$('keyStatus').textContent=''}
-}
+// ── STORAGE ───────────────────────────────
+const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
+function getKey(){return $('apiKey').value.trim()||store.get('ielts_gk')||''}
+function saveKey(){const k=$('apiKey').value.trim();store.set('ielts_gk',k);$('kSt').textContent=k?'✓ 已保存':'';$('kSt').style.color='var(--f)'}
 
-// ══════════════════════════════════════════
-//  API HELPER — Groq（完全免费，无需绑卡）
-// ══════════════════════════════════════════
+// ── API ────────────────────────────────────
 async function callAPI(prompt,max=1000){
   const key=getKey();
-  if(!key) throw new Error('请先在右上角 ⚙ 设置中填入免费的 Groq API Key');
+  if(!key)throw new Error('请先在 ⚙ 设置中填入免费的 Groq API Key');
   const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
     method:'POST',
     headers:{'Content-Type':'application/json','Authorization':'Bearer '+key},
-    body:JSON.stringify({
-      model:'llama-3.3-70b-versatile',
-      messages:[{role:'user',content:prompt}],
-      max_tokens:max,
-      temperature:0.7
-    })
+    body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'user',content:prompt}],max_tokens:max,temperature:0.7})
   });
-  if(!r.ok){
-    const e=await r.json().catch(()=>({}));
-    const msg=e.error?.message||'';
-    if(r.status===401) throw new Error('API Key 无效，请重新复制完整的 Key（gsk_ 开头）');
-    if(r.status===429) throw new Error('请求太频繁，稍等30秒再试');
-    throw new Error(msg||'Groq API error '+r.status);
-  }
+  if(!r.ok){const e=await r.json().catch(()=>({}));const m=e.error?.message||'';
+    if(r.status===401)throw new Error('API Key 无效，请重新复制完整的 Key（gsk_开头）');
+    if(r.status===429)throw new Error('请求太频繁，稍等30秒再试');
+    throw new Error(m||'Groq API error '+r.status);}
   const d=await r.json();
-  const text=d.choices?.[0]?.message?.content;
-  if(!text) throw new Error('API 返回空响应，请重试');
-  return text;
+  return d.choices[0]?.message?.content||'';
 }
+function parseJ(raw){try{return JSON.parse(raw.replace(/```json|```/g,'').trim())}catch(e){const m=raw.match(/\{[\s\S]+\}/);if(m)return JSON.parse(m[0]);throw new Error('解析失败')}}
 
-function parseJSON(raw){
-  try{return JSON.parse(raw.replace(/```json|```/g,'').trim())}
-  catch(e){const m=raw.match(/\{[\s\S]+\}/);if(m)return JSON.parse(m[0]);throw new Error('解析失败')}
-}
+// ── UI TOGGLES ─────────────────────────────
+function toggleDrw(){$('drw').classList.toggle('open')}
+function toggleExtra(){extraOpen=!extraOpen;$('eBox').style.display=extraOpen?'block':'none';$('ec').classList.toggle('open',extraOpen)}
+function toggleL(){liaisonOpen=!liaisonOpen;$('lBody').style.display=liaisonOpen?'block':'none';$('lchev').textContent=liaisonOpen?'▴ 收起':'▾ 点击展开'}
 
-// ══════════════════════════════════════════
-//  DRAWER / SETTINGS
-// ══════════════════════════════════════════
-function toggleDrawer(){$('drawer').classList.toggle('open')}
-
-// ══════════════════════════════════════════
-//  AI GENERATE ANSWER
-// ══════════════════════════════════════════
-function detectPart(q){
-  const l=q.toLowerCase();
-  if(l.startsWith('describe')||l.includes('talk about')||l.includes('tell me about')) return '2';
-  if(l.includes('why do you think')||l.includes('to what extent')||l.includes('in your opinion')
-     ||l.includes('how important')||l.includes('do you think')&&l.length>60) return '3';
-  return '1';
-}
-
-async function genAnswer(){
-  const q=$('aiQ').value.trim();
-  if(!q){$('aiQ').focus();return;}
-  let part=$('partPick').value;
-  if(part==='auto') part=detectPart(q);
-
-  const wordCt=part==='2'?'170 to 210 words':part==='3'?'100 to 130 words':'70 to 100 words';
-  const partName=part==='2'?'Part 2 (2-minute monologue)':part==='3'?'Part 3 (follow-up discussion)':'Part 1 (short conversation)';
-
-  $('genOut').innerHTML=`<div class="loader"><div class="spin"></div>AI 正在生成 Band 7-8 答案…（约 8-12 秒）</div>`;
-
-  try{
-    const raw=await callAPI(
-`You are an IELTS Speaking examiner. Generate a natural Band 7-8 answer in British English.
-
-Question: "${q}"
-Type: ${partName}
-Target: ${wordCt}
-
-Requirements:
-- Conversational British English, not robotic
-- Include specific personal examples (not vague)
-- Use varied sentence structures
-- Natural discourse markers (Well, Actually, To be honest, I would say, etc.)
-- 2-3 advanced collocations or idioms used naturally
-- Clear structure with a conclusion
-- Pronunciation-friendly rhythm (avoid overly complex syntax)
-
-Also return key phrases and pronunciation tips. Return ONLY this JSON (no markdown fences):
-{
-  "answer": "...",
-  "phrases": ["phrase 1","phrase 2","phrase 3","phrase 4"],
-  "pron": ["tip 1","tip 2","tip 3"]
-}`,1200);
-
-    const d=parseJSON(raw);
-    if(!d.answer) throw new Error('未收到答案');
-
-    $('genOut').innerHTML=`
-      <div class="gen-result">
-        <div class="gen-preview">${d.answer}</div>
-        <div class="gen-actions">
-          <button class="btn btn-g btn-full" onclick="loadGenerated(${JSON.stringify(q).replace(/</g,'&lt;')},${JSON.stringify(d).replace(/</g,'&lt;')},${part})">
-            ✅ 加载到练习区
-          </button>
-          <button class="btn btn-ghost" onclick="say(${JSON.stringify(d.answer)})">🔊</button>
-        </div>
-      </div>`;
-    // auto-load
-    loadGenerated(q,d,part);
-  }catch(err){
-    $('genOut').innerHTML=`<div style="background:#fde8e0;border-radius:10px;padding:12px;font-size:13px;color:#7a2a18;margin-top:10px">
-      ❌ 生成失败：${err.message}<br>
-      <span style="font-size:11px">请检查 API Key（在 ⚙ 设置中），或稍后重试。</span>
-    </div>`;
-  }
-}
-
-function loadGenerated(q,d,part){
-  const partLabel=part==='2'?'Part 2':part==='3'?'Part 3':'Part 1';
-  cur={part:partLabel,topic:'AI生成',q,answer:d.answer,phrases:d.phrases||[],pron:d.pron||[]};
-  sents=splitS(cur.answer); sidx=0; showAllSents=false;
-  $('pTag').textContent=partLabel; $('pTag').className='tag tag-ai';
-  $('tTag').textContent='AI生成'; $('tTag').className='tag tag-ai';
-  $('srcTag').textContent='✨ AI生成'; $('srcTag').className='tag tag-ai';
-  $('qText').textContent=q;
-  $('ansText').innerHTML=hl(cur.answer,cur.phrases);
-  $('phrases').innerHTML=cur.phrases.map(p=>`<li>${p}</li>`).join('');
-  $('prons').innerHTML=cur.pron.map(p=>`<li>${p}</li>`).join('');
-  renderSentList(); updateS(); resetScore();
-  // Scroll to practice
-  setTimeout(()=>document.querySelector('.practice-card').scrollIntoView({behavior:'smooth',block:'center'}),300);
-}
-
-// ══════════════════════════════════════════
-//  LIAISON ENGINE
-// ══════════════════════════════════════════
+// ── LIAISON ENGINE ─────────────────────────
 const VOWELS=new Set([...'aeiou']);
 const CONS=new Set([...'bcdfghjklmnpqrstvwxyz']);
-const WEAK={'and':'/ən/','to':'/tə/','of':'/əv/','for':'/fə/','a':'/ə/','an':'/ən/',
-            'the':'/ðə/','that':'/ðət/','can':'/kən/','have':'/həv/','was':'/wəz/',
-            'are':'/ə/','but':'/bət/','from':'/frəm/','at':'/ət/','or':'/ə/'};
-
-function effLast(w){
-  const s=w.toLowerCase().replace(/[^a-z]/g,'');
-  if(!s) return null;
-  if(s.endsWith('e')&&s.length>2){const p=s[s.length-2];if(CONS.has(p)&&!'lnrse'.includes(p))return p;}
-  const c=s[s.length-1];return CONS.has(c)?c:null;
-}
-
-function detectLiaisons(sentence){
-  const wds=(sentence.match(/\b[a-zA-Z']+\b/g)||[]);
-  const res=[],seen=new Set();
+const WEAK={'and':'/ən/','to':'/tə/','of':'/əv/','for':'/fə/','a':'/ə/','an':'/ən/','the':'/ðə/','that':'/ðət/','can':'/kən/','have':'/həv/','was':'/wəz/','are':'/ə/','but':'/bət/','from':'/frəm/','at':'/ət/','or':'/ə/'};
+function effLast(w){const s=w.toLowerCase().replace(/[^a-z]/g,'');if(!s)return null;if(s.endsWith('e')&&s.length>2){const p=s[s.length-2];if(CONS.has(p)&&!'lnrse'.includes(p))return p}const c=s[s.length-1];return CONS.has(c)?c:null}
+function detectL(sent){
+  const wds=(sent.match(/\b[a-zA-Z']+\b/g)||[]),res=[],seen=new Set();
   for(let i=0;i<wds.length-1;i++){
-    const w1=wds[i],w2=wds[i+1];
-    const c1=w1.toLowerCase().replace(/[^a-z]/g,''),c2=w2.toLowerCase().replace(/[^a-z]/g,'');
+    const w1=wds[i],w2=wds[i+1],c1=w1.toLowerCase().replace(/[^a-z]/g,''),c2=w2.toLowerCase().replace(/[^a-z]/g,'');
     if(!c1||!c2)continue;
     const last=effLast(w1),first=c2[0],key=c1+'_'+c2;
     if(seen.has(key))continue;
-    if(last&&CONS.has(last)&&VOWELS.has(first)){
-      seen.add(key);
-      res.push({type:'cv',label:'CV连读',col:'#3a6651',bg:'#e2f0e8',
-        words:[w1,w2],desc:`"${w1}" /${last}/ 直接滑入 "${w2}"`,phone:`...${last}${first}...`,speak:`${w1} ${w2}`});
-      continue;
-    }
-    if(!seen.has(key)){
-      const t2=c1.slice(-2);
-      if((t2==='er'||t2==='ar'||t2==='or'||t2==='ur'||c1.endsWith('re'))&&VOWELS.has(first)){
-        seen.add(key);
-        res.push({type:'lr',label:'连音R',col:'#325380',bg:'#e2eaf4',
-          words:[w1,w2],desc:`英式"${w1}"的r在元音"${w2}"前激活`,phone:`/r${first}/`,speak:`${w1} ${w2}`});
-        continue;
-      }
-    }
-    if(WEAK[c1]&&!seen.has('wk:'+c1+i)){
-      seen.add('wk:'+c1+i);
-      res.push({type:'wk',label:'弱读',col:'#b05e28',bg:'#f5e8da',
-        words:[w1,w2],desc:`"${w1}"句中弱读为 ${WEAK[c1]}`,phone:WEAK[c1],speak:`${w1} ${w2}`});
-    }
+    if(last&&CONS.has(last)&&VOWELS.has(first)){seen.add(key);res.push({type:'cv',label:'CV连读',col:'#1b4332',bg:'#ecf5f0',words:[w1,w2],desc:`"${w1}" /${last}/ 直接滑入 "${w2}"`,phone:`...${last}${first}...`,speak:`${w1} ${w2}`});continue}
+    if(!seen.has(key)){const t2=c1.slice(-2);if((t2==='er'||t2==='ar'||t2==='or'||t2==='ur'||c1.endsWith('re'))&&VOWELS.has(first)){seen.add(key);res.push({type:'lr',label:'连音R',col:'#1e3a5f',bg:'#eaf0f8',words:[w1,w2],desc:`英式"${w1}"末尾r在"${w2}"前激活`,phone:`/r${first}/`,speak:`${w1} ${w2}`});continue}}
+    if(WEAK[c1]&&!seen.has('wk:'+c1+i)){seen.add('wk:'+c1+i);res.push({type:'wk',label:'弱读',col:'#c05621',bg:'#fef3ea',words:[w1,w2],desc:`"${w1}"句中弱读为 ${WEAK[c1]}`,phone:WEAK[c1],speak:`${w1} ${w2}`})}
   }
   return res.slice(0,6);
 }
-
-function renderLiaisons(sentence){
-  curLiaisons=detectLiaisons(sentence);
+function renderL(sent){
+  curLiaisons=detectL(sent);
   $('lcnt').textContent=curLiaisons.length?`· ${curLiaisons.length} 个连读点`:'';
   const el=$('lcards');
-  if(!curLiaisons.length){el.innerHTML=`<p style="color:var(--sub);font-size:12px;padding:4px 0">本句未检测到明显连读点。注意单词内音节的连接感。</p>`;return;}
-  el.innerHTML=curLiaisons.map((l,i)=>`
-    <div class="lcard">
-      <span class="lbadge" style="background:${l.bg};color:${l.col}">${l.label}</span>
-      <div class="lcard-info">
-        <div class="lcard-pair">${l.words.join(' + ')}</div>
-        <div class="lcard-desc">${l.desc}</div>
-        <div class="lcard-phone">${l.phone}</div>
-      </div>
-      <div class="lcard-btns">
-        <button class="btn btn-ghost btn-sm" style="padding:5px 8px;font-size:11px" onclick="speakL(${i},0.84)">▶ 正常</button>
-        <button class="btn btn-ghost btn-sm" style="padding:5px 8px;font-size:11px" onclick="speakL(${i},0.58)">▶ 慢速</button>
-      </div>
-    </div>`).join('');
+  if(!curLiaisons.length){el.innerHTML=`<p style="color:var(--sub);font-size:12px;padding:4px 0">本句未检测到明显连读点。</p>`;return}
+  el.innerHTML=curLiaisons.map((l,i)=>`<div class="lcard">
+    <span class="lbg" style="background:${l.bg};color:${l.col}">${l.label}</span>
+    <div class="linfo"><div class="lpair">${l.words.join(' + ')}</div><div class="ldesc">${l.desc}</div><div class="lph">${l.phone}</div></div>
+    <div class="lbtns">
+      <button class="btn btn-g btn-sm" style="padding:5px 9px;font-size:11px" onclick="say('${l.speak.replace(/'/g,"\\'")}',0.84)">▶ 正常</button>
+      <button class="btn btn-g btn-sm" style="padding:5px 9px;font-size:11px" onclick="say('${l.speak.replace(/'/g,"\\'")}',0.55)">▶ 慢速</button>
+    </div></div>`).join('')
 }
 
-function speakL(i,r){if(curLiaisons[i])say(curLiaisons[i].speak,r);}
-function toggleLiaison(){
-  liaisonOpen=!liaisonOpen;
-  $('liaisonBody').style.display=liaisonOpen?'block':'none';
-  $('lchev').textContent=liaisonOpen?'▴':'▾';
-}
-function toggleExtras(){
-  extrasOpen=!extrasOpen;
-  $('extrasBox').style.display=extrasOpen?'block':'none';
-  $('extChev').classList.toggle('open',extrasOpen);
-}
-
-// ══════════════════════════════════════════
-//  VOICE / TTS
-// ══════════════════════════════════════════
+// ── VOICE / TTS ────────────────────────────
 function loadVoices(){
-  if(!('speechSynthesis' in window)){$('vMsg').textContent='浏览器不支持朗读，请换 Chrome/Edge/Safari。';return;}
+  if(!('speechSynthesis' in window)){$('vMsg').textContent='浏览器不支持朗读，请换 Chrome/Edge/Safari';return}
   voices=window.speechSynthesis.getVoices();
   const sel=$('vSel');sel.innerHTML='';
-  const gb=voices.filter(v=>/en-GB/i.test(v.lang)||/British|UK|Daniel|Kate|Serena/i.test(v.name));
-  const en=voices.filter(v=>/^en/i.test(v.lang));
-  const list=gb.length?gb:(en.length?en:voices);
-  list.forEach(v=>{const o=document.createElement('option');o.value=voices.indexOf(v);o.textContent=`${v.name} (${v.lang})`;sel.appendChild(o);});
-  $('vMsg').textContent=gb.length?`✓ 已检测到 ${gb.length} 个英式声音`:'未检测到英式声音，已用其他英文声音';
+  const cloudP=['Google UK English Female','Google UK English Male'];
+  const apP=['Daniel','Nicky','Stephanie','Kate','Serena','Arthur','Martha'];
+  const score=v=>{for(let i=0;i<cloudP.length;i++)if(v.name.includes(cloudP[i]))return i;for(let i=0;i<apP.length;i++)if(v.name.includes(apP[i]))return cloudP.length+i;if(/en-GB/i.test(v.lang))return 100;if(/^en/i.test(v.lang))return 200;return 999};
+  const eng=voices.filter(v=>/^en/i.test(v.lang)||/British|UK|Daniel|Kate|Nicky|Arthur/i.test(v.name));
+  eng.sort((a,b)=>score(a)-score(b));
+  const list=eng.length?eng:voices;
+  list.forEach(v=>{const o=document.createElement('option');o.value=voices.indexOf(v);o.textContent=`${v.name} (${v.lang})`;sel.appendChild(o)});
+  const best=list[0];
+  $('vMsg').textContent=best?`已选：${best.name} — ${/Google/i.test(best.name)?'☁ 云端高清 ✓':/Daniel|Nicky/i.test(best.name)?'🍎 Apple 高质量 ✓':'英文声音'}`:'未找到英文声音'
 }
-function pickVoice(){const v=voices[Number($('vSel').value)];return v||voices.find(v=>/en-GB/i.test(v.lang))||voices.find(v=>/^en/i.test(v.lang))||null;}
-function unlockVoice(){loadVoices();say('Ready. British English shadowing trainer is unlocked.',0.85,()=>{$('pstate').textContent='发音已解锁，开始跟读吧！'});}
-function say(text,rate,cb){
-  if(!('speechSynthesis' in window)){alert('浏览器不支持朗读，请换 Chrome/Edge/Safari。');return;}
-  window.speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance(text);
-  u.lang='en-GB';u.rate=rate||Number($('rate').value||0.84);u.pitch=1;
-  const v=pickVoice();if(v)u.voice=v;
-  u.onstart=()=>{$('pstate').textContent='播放中…';};
-  u.onend=()=>{$('pstate').textContent='播放结束，现在你来模仿。';if(cb)cb();};
-  u.onerror=()=>{$('pstate').textContent='朗读失败，请先点"解锁发音"。';};
-  setTimeout(()=>window.speechSynthesis.speak(u),60);
-}
-function stopSpeech(){if('speechSynthesis' in window)window.speechSynthesis.cancel();$('pstate').textContent='已停止。';}
+function pickVoice(){return voices[Number($('vSel').value)]||null}
+function unlockVoice(){loadVoices();say("Ready. British English shadowing, let's begin.",0.8,()=>{$('pSt').textContent='✅ 发音已解锁，开始跟读吧！'})}
+function setRate(r){curRate=r;$('rV').textContent=r+'×';document.querySelectorAll('.spd').forEach(b=>b.classList.toggle('on',parseFloat(b.textContent)===r))}
 
-// ══════════════════════════════════════════
-//  QUESTIONS
-// ══════════════════════════════════════════
+function smartSplit(text){
+  const wc=(text.match(/\S+/g)||[]).length;if(wc<=10)return[text];
+  const raw=text.split(/,\s*/);if(raw.length<=1)return[text];
+  const merged=[];let buf='';
+  for(let j=0;j<raw.length;j++){
+    const chunk=raw[j].trim(),cw=chunk.split(/\s+/).length;
+    if(buf){const conj=/^(although|because|which|when|while|so|yet|if|unless|until|since|as|after|before|once)\b/i.test(chunk);
+      if(conj||cw<4)buf=buf+', '+chunk;else{merged.push(buf);buf=chunk}}else buf=chunk
+  }
+  if(buf)merged.push(buf);return merged.length>1?merged:[text]
+}
+
+let _kai=null;
+function _startKA(){_kai=setInterval(()=>{if(window.speechSynthesis.speaking&&!window.speechSynthesis.paused){window.speechSynthesis.pause();window.speechSynthesis.resume()}},8000)}
+function _stopKA(){if(_kai){clearInterval(_kai);_kai=null}}
+
+function say(text,rate,cb){
+  if(!('speechSynthesis' in window)){alert('请换 Chrome/Edge/Safari 打开');return}
+  window.speechSynthesis.cancel();_stopKA();
+  const r=rate!==undefined?rate:curRate;
+  const parts=smartSplit(text);const v=pickVoice();let i=0;
+  $('pSt').textContent='播放中…';
+  function next(){
+    if(i>=parts.length){_stopKA();$('pSt').textContent='播放结束，现在你来模仿';if(cb)cb();return}
+    const u=new SpeechSynthesisUtterance(parts[i]);
+    u.lang='en-GB';u.rate=r;u.pitch=0.95;u.volume=1;
+    if(v)u.voice=v;
+    u.onend=()=>{i++;setTimeout(next,r<=0.6?240:r<=0.9?180:130)};
+    u.onerror=e=>{if(e.error!=='interrupted')return;i++;setTimeout(next,60)};
+    window.speechSynthesis.speak(u)
+  }
+  _startKA();setTimeout(next,80)
+}
+function stopSpeech(){if('speechSynthesis' in window)window.speechSynthesis.cancel();_stopKA();$('pSt').textContent='已停止'}
+
+// ── QUESTIONS ─────────────────────────────
 function filterQ(){
-  const p=$('partSel').value;
+  const p=$('pSel').value;
   filtered=p==='all'?[...DATA]:DATA.filter(x=>x.part===p);
   const sel=$('qSel');sel.innerHTML='';
-  filtered.forEach((item,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${item.part}｜${item.topic}｜${item.q.slice(0,34)}`;sel.appendChild(o);});
-  loadQ();
+  filtered.forEach((item,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${item.part}｜${item.topic}｜${item.q.slice(0,34)}`;sel.appendChild(o)});
+  loadQ()
 }
 function loadQ(){
   cur=filtered[Number($('qSel').value)||0]||DATA[0];
-  sents=splitS(cur.answer);sidx=0;showAllSents=false;
-  $('pTag').textContent=cur.part;$('pTag').className='tag tag-g';
-  $('tTag').textContent=cur.topic;$('tTag').className='tag tag-b';
-  $('srcTag').textContent='题库';$('srcTag').className='tag tag-o';
+  sents=cur.answer.match(/[^.!?]+[.!?]+/g)||[cur.answer];
+  sents=sents.map(s=>s.trim());sidx=0;showAll=false;
+  $('pTag').textContent=cur.part;$('pTag').className='tag tg';
+  $('tTag').textContent=cur.topic;$('tTag').className='tag tb';
+  $('sTag').textContent='题库';$('sTag').className='tag to';
   $('qText').textContent=cur.q;
-  $('ansText').innerHTML=hl(cur.answer,cur.phrases);
+  $('ansText').innerHTML=hlPhrases(cur.answer,cur.phrases);
   $('phrases').innerHTML=cur.phrases.map(p=>`<li>${p}</li>`).join('');
   $('prons').innerHTML=cur.pron.map(p=>`<li>${p}</li>`).join('');
-  renderSentList();updateS();resetScore();
+  renderSents();updateS();resetS();resetFull()
 }
-function splitS(t){const a=t.match(/[^.!?]+[.!?]+/g);return a?a.map(x=>x.trim()):[t.trim()];}
-function hl(t,phrases){
-  let o=t;
-  phrases.forEach(p=>{const s=p.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-    try{o=o.replace(new RegExp(s,'gi'),m=>`<mark>${m}</mark>`);}catch(e){}});
-  return o;
+function hlPhrases(t,phrases){
+  let o=t;phrases.forEach(p=>{const s=p.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    try{o=o.replace(new RegExp(s,'gi'),m=>`<mark>${m}</mark>`)}catch(e){}});return o
 }
-function randomQ(){$('qSel').value=Math.floor(Math.random()*filtered.length);loadQ();}
-function copyAns(){navigator.clipboard?.writeText(`Q: ${cur.q}\n\nA: ${cur.answer}`).then(()=>alert('已复制题目和答案。'));}
-function playFull(){say(cur.answer,Number($('rate').value||0.84));}
+function randQ(){$('qSel').value=Math.floor(Math.random()*filtered.length);loadQ()}
+function copyAns(){navigator.clipboard?.writeText(`Q: ${cur.q}\n\nA: ${cur.answer}`).then(()=>alert('已复制'))}
+function playFull(){say(cur.answer,curRate)}
 
-// ══════════════════════════════════════════
-//  NAVIGATION
-// ══════════════════════════════════════════
-function renderSentList(){
-  const MAX=6;
-  const show=showAllSents?sents:sents.slice(0,MAX);
-  const listEl=$('sentList');
-  listEl.innerHTML=show.map((s,i)=>`
-    <div class="sent-item ${i===sidx?'active':''}" onclick="selS(${i})">
-      <span class="snm">${i+1}</span>
-      <span class="stxt">${s}</span>
-    </div>`).join('');
+// ── NAVIGATION ────────────────────────────
+function renderSents(){
+  const MAX=6,show=showAll?sents:sents.slice(0,MAX);
+  const el=$('sentList');
+  el.innerHTML=show.map((s,i)=>`<div class="si ${i===sidx?'on':''}" onclick="selS(${i})"><span class="snm">${i+1}</span><span class="stx">${s}</span></div>`).join('');
   if(sents.length>MAX){
-    const btn=document.createElement('button');
-    btn.className='show-more-btn';
-    btn.textContent=showAllSents?`▴ 收起 (${sents.length} 句)`:`▾ 显示全部 ${sents.length} 句`;
-    btn.onclick=()=>{showAllSents=!showAllSents;renderSentList();};
-    listEl.appendChild(btn);
+    const b=document.createElement('button');b.className='sm-btn';
+    b.textContent=showAll?`▴ 收起（共${sents.length}句）`:`▾ 显示全部 ${sents.length} 句`;
+    b.onclick=()=>{showAll=!showAll;renderSents()};el.appendChild(b)
   }
 }
-
 function updateS(){
   const s=sents[sidx]||'';
-  $('sctr').textContent=`${sidx+1} / ${sents.length}`;
-  $('progFill').style.width=((sidx+1)/sents.length*100)+'%';
+  $('sctr').textContent=`第 ${sidx+1} 句 / 共 ${sents.length} 句`;
+  $('pFill').style.width=((sidx+1)/sents.length*100)+'%';
   $('curSent').textContent=s;
-  $('pstate').textContent='已切换，可以播放或录音';
-  renderSentList();renderLiaisons(s);
+  $('pSt').textContent='✅ 已切换，点 ▶ 播放本句 开始';
+  renderSents();renderL(s)
 }
-function selS(i){sidx=i;updateS();}
-function nextS(){if(sidx<sents.length-1){sidx++;updateS();}}
-function prevS(){if(sidx>0){sidx--;updateS();}}
-function restartS(){sidx=0;showAllSents=false;updateS();}
-function playCur(){say(sents[sidx],Number($('rate').value||0.84));}
-function playSlowCur(){say(sents[sidx],0.63);}
-function playPause(){
-  say(sents[sidx],Number($('rate').value||0.84),()=>{
-    let n=3;$('pstate').textContent=`请跟读：${n}`;
-    const t=setInterval(()=>{n--;if(n>0){$('pstate').textContent=`请跟读：${n}`;}
-      else{clearInterval(t);$('pstate').textContent='跟读结束，可以录音评分了。';}},1000);
-  });
-}
+function selS(i){sidx=i;updateS()}
+function nextS(){if(sidx<sents.length-1){sidx++;updateS()}}
+function prevS(){if(sidx>0){sidx--;updateS()}}
+function restartS(){sidx=0;showAll=false;updateS()}
+function playCur(){say(sents[sidx],curRate)}
+function playSlowCur(){say(sents[sidx],0.5)}
+function playPause(){say(sents[sidx],curRate,()=>{let n=3;$('pSt').textContent=`请跟读：${n}`;const t=setInterval(()=>{n--;if(n>0)$('pSt').textContent=`请跟读：${n}`;else{clearInterval(t);$('pSt').textContent='跟读结束，可以录音评分了'}},1000)})}
 
-// ══════════════════════════════════════════
-//  SCORING
-// ══════════════════════════════════════════
-function norm(s){return(s||'').toLowerCase().replace(/['']/g,'').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();}
+// ── RECORDING ─────────────────────────────
+function norm(s){return(s||'').toLowerCase().replace(/['']/g,'').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim()}
 function wl(s){const n=norm(s);return n?n.split(' '):[]}
 function ed(a,b){
   const n=a.length,m=b.length,dp=Array.from({length:n+1},()=>Array(m+1).fill(0));
   for(let i=0;i<=n;i++)dp[i][0]=i;for(let j=0;j<=m;j++)dp[0][j]=j;
-  for(let i=1;i<=n;i++)for(let j=1;j<=m;j++){const c=a[i-1]===b[j-1]?0:1;dp[i][j]=Math.min(dp[i-1][j]+1,dp[i][j-1]+1,dp[i-1][j-1]+c);}
-  return dp[n][m];
+  for(let i=1;i<=n;i++)for(let j=1;j<=m;j++){const c=a[i-1]===b[j-1]?0:1;dp[i][j]=Math.min(dp[i-1][j]+1,dp[i][j-1]+1,dp[i-1][j-1]+c)}
+  return dp[n][m]
 }
 
-function recSent(){recTarget=sents[sidx];startRec('正在录当前句子，请只说这一句。');}
-function recFull(){recTarget=cur.answer;startRec('正在录整段答案。');}
+function recSent(){recTarget=sents[sidx];recMode='s';startRec()}
+function recFull(){recTarget=cur.answer;recMode='f';startRec()}
 
-function startRec(msg){
+async function startRec(){
+  const isSafari=/^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  if(isSafari){
+    const el=recMode==='s'?$('sTrans'):$('fTrans');
+    if(recMode==='s')$('iScore').style.display='block';else $('fScore').style.display='block';
+    el.innerHTML=`<div class="merr"><b>⚠️ Safari 不支持录音识别</b>请改用 <b>Chrome</b> 或 <b>Edge</b> 打开本页面。<br><span style="color:var(--sub)">播放、连读分析在 Safari 完全正常，只有录音需要 Chrome。</span></div>`;
+    return
+  }
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){$('trans').textContent='此浏览器不支持语音识别，请用 Chrome/Edge。';return;}
+  if(!SR){
+    const el=recMode==='s'?$('sTrans'):$('fTrans');
+    if(recMode==='s')$('iScore').style.display='block';else $('fScore').style.display='block';
+    el.innerHTML=`<div class="merr"><b>⚠️ 不支持录音</b>请使用 <b>Chrome</b> 或 <b>Edge</b></div>`;return
+  }
+  try{const stream=await navigator.mediaDevices.getUserMedia({audio:true});stream.getTracks().forEach(t=>t.stop())}
+  catch(e){
+    const el=recMode==='s'?$('sTrans'):$('fTrans');
+    if(recMode==='s')$('iScore').style.display='block';else $('fScore').style.display='block';
+    const msg=e.name==='NotAllowedError'?`<b>⚠️ 麦克风被拒绝</b><br>Mac：系统设置 → 隐私与安全 → 麦克风 → 允许 Chrome<br>然后在 Chrome 地址栏 🔒 → 麦克风 → 允许<br><b>设置完后刷新页面重试</b>`:`麦克风错误：${e.message}`;
+    el.innerHTML=`<div class="merr">${msg}</div>`;$('pSt').textContent='❌ 麦克风未就绪';return
+  }
   stopSpeech();finalTxt='';
-  rec=new SR();rec.lang='en-GB';rec.continuous=true;rec.interimResults=true;
-  t0=Date.now();$('slv').textContent='Listening…';$('trans').textContent=msg;
+  if(recMode==='s'){$('iScore').style.display='block';$('sTrans').textContent='正在录音…请说这一句'}
+  else{$('fScore').style.display='block';$('fTrans').textContent='正在录音…请说完整答案'}
+  $('pSt').textContent='🔴 录音中…说完后自动识别';
+  rec=new SR();rec.lang='en-GB';rec.continuous=true;rec.interimResults=true;t0=Date.now();
   rec.onresult=e=>{
-    let interim='';
-    for(let i=e.resultIndex;i<e.results.length;i++){const t=e.results[i][0].transcript;if(e.results[i].isFinal)finalTxt+=' '+t;else interim+=t;}
-    $('trans').textContent=(finalTxt+' '+interim).trim();
+    let int='';for(let i=e.resultIndex;i<e.results.length;i++){const t=e.results[i][0].transcript;if(e.results[i].isFinal)finalTxt+=' '+t;else int+=t}
+    const txt=(finalTxt+' '+int).trim();
+    if(recMode==='s')$('sTrans').textContent=txt;else $('fTrans').textContent=txt
   };
-  rec.onerror=e=>{$('trans').textContent='识别出错：'+e.error+'。请检查麦克风权限。';};
-  rec.onend=()=>{evaluate(finalTxt||$('trans').textContent,recTarget);};
-  rec.start();
+  rec.onerror=e=>{
+    const el=recMode==='s'?$('sTrans'):$('fTrans');
+    const m=e.error==='not-allowed'?`<b>⚠️ 权限被拒绝</b><br>Mac：系统设置 → 隐私与安全 → 麦克风 → 允许 Chrome<br>然后刷新页面重试`:`识别出错：${e.error}。检查麦克风是否正常。`;
+    el.innerHTML=`<div class="merr">${m}</div>`;$('pSt').textContent='❌ 录音失败'
+  };
+  rec.onend=()=>{
+    const spoken=finalTxt||(recMode==='s'?$('sTrans').textContent:$('fTrans').textContent);
+    evaluate(spoken,recTarget,recMode);$('pSt').textContent='录音完成，查看下方评分'
+  };
+  rec.start()
 }
-function stopRec(){if(rec)rec.stop();}
+function stopRec(){if(rec)rec.stop()}
 
-function evaluate(spoken,target){
+function evaluate(spoken,target,mode){
+  const pfx=mode==='s'?'s':'f';
   const exp=wl(target),sp=wl(spoken);
   const dur=Math.max((Date.now()-t0)/60000,.06);
   const sim=exp.length?Math.max(0,1-ed(exp,sp)/Math.max(exp.length,sp.length)):0;
@@ -895,148 +803,164 @@ function evaluate(spoken,target){
   const rhy=Math.min(1,sim*.5+spd*.5);
   const overall=Math.round((sim*.65+cov*.15+spd*.12+rhy*.08)*100);
   const lv=overall>=86?'Excellent 🎉':overall>=72?'Good 👍':overall>=58?'OK 💪':overall>=42?'Repeat 🔁':'Start again 🆕';
-
-  $('snr').textContent=overall;
-  $('sring').style.setProperty('--d',overall*3.6+'deg');
-  $('slv').textContent=lv;
-
+  const pfxId=pfx==='s'?'s':'f';
+  $(pfxId+'Num').textContent=overall;
+  $(pfxId+'Ring').style.setProperty('--d',overall*3.6+'deg');
+  $(pfxId+'Lv').textContent=lv;
+  const cols=['var(--f)','var(--b)','var(--o)','var(--y)'];
   const pcts=[Math.round(sim*100),Math.round(spd*100),Math.round(cov*100),Math.round(rhy*100)];
-  const cols=['var(--g)','var(--b)','var(--o)','var(--y)'];
   const tips=[
-    sim<.5?'⚠️ 先听3遍再跟读，出声模仿每个词':sim<.75?'💡 注意补全漏掉的关键词（见下方红字）':'✅ 内容覆盖良好，可尝试不看稿复述',
-    wpm<80?`⚠️ 语速偏慢（${wpm} WPM），减少句内停顿`:wpm>175?`⚠️ 语速偏快（${wpm} WPM），放慢重音词`:`✅ 语速合适（${wpm} WPM）`,
-    cov<.65?'⚠️ 长度不足：请确认说完了整句/整段':cov<.85?'💡 稍有漏词，再整体过一遍':'✅ 长度覆盖完整',
-    rhy<.6?'⚠️ 注意CV连读，相邻词滑起来说':rhy<.8?'💡 连读节奏还可提升，参考连读分析面板':'✅ 节奏感不错'
+    sim<.5?'⚠️ 先听3遍再跟读，出声模仿每个词':sim<.75?'💡 注意补全漏掉的关键词（见下方红字）':'✅ 内容覆盖良好',
+    wpm<80?`⚠️ 语速偏慢（${wpm} WPM），减少停顿`:wpm>175?`⚠️ 语速偏快（${wpm} WPM）`:`✅ 语速合适（${wpm} WPM）`,
+    cov<.65?'⚠️ 长度不足，请说完整句再停':cov<.85?'💡 稍有漏词，再整体过一遍':'✅ 长度完整',
+    rhy<.6?'⚠️ 注意CV连读，相邻词滑起来说':rhy<.8?'💡 连读节奏可提升':'✅ 节奏感不错'
   ];
-
-  $('dimArea').style.display='block';
-  setTimeout(()=>{
-    pcts.forEach((p,i)=>{
-      $(`d${i}p`).textContent=p+'%';
-      $(`d${i}p`).style.color=p>=75?'var(--g)':p>=55?'var(--y)':'var(--r)';
-      $(`d${i}f`).style.width=p+'%';
-      $(`d${i}f`).style.background=cols[i];
-      $(`d${i}t`).textContent=tips[i];
-    });
-  },80);
-
-  const steps=genSteps(sim,cov,wpm,target);
-  $('stepsArea').style.display='block';
-  $('stepsList').innerHTML=steps.map((s,i)=>`<div class="step"><span class="step-n">${i+1}</span><span class="step-t">${s}</span></div>`).join('');
-
+  setTimeout(()=>{[0,1,2,3].forEach(i=>{
+    $(`${pfxId}d${i}f`).style.width=pcts[i]+'%';$(`${pfxId}d${i}f`).style.background=cols[i];
+    $(`${pfxId}d${i}p`).textContent=pcts[i]+'%';
+    $(`${pfxId}d${i}p`).style.color=pcts[i]>=75?'var(--f)':pcts[i]>=55?'var(--y)':'var(--o)'
+    ;$(`${pfxId}d${i}t`).textContent=tips[i]})},80);
+  const steps=genSteps(sim,cov,wpm,target,mode);
+  $(`${pfxId}Steps`).style.display='block';
+  $(`${pfxId}StepList`).innerHTML=steps.map((s,i)=>`<div class="step"><span class="sn">${i+1}</span><span class="st">${s}</span></div>`).join('');
   const stop=new Set(['the','a','an','and','or','but','to','of','in','on','at','for','with','is','am','are','was','were','it','i','me','my','you','your','that','this','so','do','does','not','very','quite','just','be']);
   const spSet=new Set(sp),out=[];
-  exp.forEach(w=>{if(w.length>3&&!stop.has(w)&&!spSet.has(w)&&!out.includes(w))out.push(w);});
-  $('missedW').innerHTML=out.slice(0,18).map(w=>`<span class="mw" onclick="say('${w.replace(/'/g,"\\'")}')" title="点击播放">${w}</span>`).join('');
-
-  $('aiAnalBtn').disabled=false;
+  exp.forEach(w=>{if(w.length>3&&!stop.has(w)&&!spSet.has(w)&&!out.includes(w))out.push(w)});
+  $(`${pfxId}Missed`).innerHTML=out.slice(0,16).map(w=>`<span class="mw" onclick="say('${w.replace(/'/g,"\\'")}')">${w}</span>`).join('');
+  $(`${pfxId}AiBtn`).disabled=false
 }
 
-function genSteps(sim,cov,wpm,target){
-  const isSent=target!==cur.answer,ls=detectLiaisons(target),steps=[];
-  if(isSent) steps.push('🎯 单句模式：把这一句说顺就算本轮成功，不必追求整段完美');
-  if(sim<.5){
-    steps.push('👂 第1遍：只听，不跟读，数出这句的重读词（通常2-3个）');
-    steps.push('📖 第2遍：对着文字，嘴型动但不出声，感受节奏和断句');
-    steps.push('🗣️ 第3遍：出声跟读，允许很慢很卡，把每个词说出来就算赢');
-  } else if(sim<.75){
-    if(ls.length) steps.push(`🔗 连读重点：注意"${ls[0].words.join(' ')}"（${ls[0].label}）—— ${ls[0].desc}`);
-    steps.push('🔴 补漏词：下方红色标注的词是你漏掉的，单独说3遍再放回句子');
-    steps.push('🎯 再录一遍：只关注补全漏词，语速快慢不管');
-  } else if(sim<.9){
-    steps.push('🎭 加感情：名词/形容词说重，and/the/a/to 说轻（弱读）');
-    if(ls.length) steps.push(`🔗 精修连读："${ls[0].words.join(' ')}"连起来说，不要每词分开`);
-    steps.push(`⚡ 试提速：以约 ${Math.min(Math.round(wpm*1.12),158)} WPM 节奏再录一遍`);
-  } else {
-    steps.push('🏆 内容已经很完整！下一步：合上笔记，只看题目，自由复述');
-    steps.push('🎤 发音细节：模仿英式元音起伏，尤其 /əʊ/ /æ/ /ɑː/ 的口型');
-    steps.push('📝 迁移练习：把这句的核心短语用在其他题目的回答里');
-  }
-  if(wpm>0&&wpm<80) steps.push('⏱️ 流利技巧：把句子切成2段，每段内部不停顿，连着说完');
-  return steps.slice(0,4);
+function genSteps(sim,cov,wpm,target,mode){
+  const isSent=mode==='s',ls=detectL(target),steps=[];
+  if(isSent)steps.push('🎯 单句模式：这一句说顺就算本轮成功');
+  if(sim<.5){steps.push('👂 第1步：只听不跟读，数出这句有几个重读词');steps.push('📖 第2步：对着文字，嘴型动但不出声，感受节奏');steps.push('🗣️ 第3步：出声跟读，允许很慢很卡，说出来就算赢')}
+  else if(sim<.75){if(ls.length)steps.push(`🔗 连读："${ls[0].words.join(' ')}"（${ls[0].label}）—— ${ls[0].desc}`);steps.push('🔴 补漏词：下方红字是漏掉的词，单独说3遍再放回句子');steps.push('🎯 再录一遍：只关注补全漏词')}
+  else if(sim<.9){steps.push('🎭 加感情：名词/形容词说重，and/the/a/to 说轻');if(ls.length)steps.push(`🔗 精修："${ls[0].words.join(' ')}"连起来说，不要每词分开`);steps.push(`⚡ 试提速：以约 ${Math.min(Math.round(wpm*1.12),158)} WPM 再录一遍`)}
+  else{steps.push('🏆 完整！下一步：只看题目，自由复述');steps.push('🎤 发音细节：模仿英式元音 /əʊ/ /æ/ /ɑː/ 的口型');steps.push('📝 迁移：把核心短语用在其他题目里')}
+  if(wpm>0&&wpm<80)steps.push('⏱️ 流利技巧：把句子切2段，每段内不停顿');
+  return steps.slice(0,4)
 }
 
-function resetScore(){
-  $('snr').textContent='--';$('sring').style.setProperty('--d','0deg');$('slv').textContent='等待录音';
-  $('trans').textContent='点击"录本句评分"或"录整段"后，这里显示你说的英文。';
-  $('dimArea').style.display='none';$('stepsArea').style.display='none';
-  $('missedW').innerHTML='';$('aiOut').innerHTML='';$('aiAnalBtn').disabled=true;
-  ['d0','d1','d2','d3'].forEach(i=>{$(i+'p').textContent='--';$(i+'f').style.width='0';$(i+'t').textContent='';});
+function resetS(){
+  $('sNum').textContent='--';$('sRing').style.setProperty('--d','0deg');$('sLv').textContent='--';
+  $('sTrans').textContent='识别的英文会显示在这里';$('iScore').style.display='none';
+  $('sSteps').style.display='none';$('sMissed').innerHTML='';$('sAiBtn').disabled=true;$('sAiOut').innerHTML='';
+  ['sd0','sd1','sd2','sd3'].forEach(id=>{$(id+'f').style.width='0';$(id+'p').textContent='--%';$(id+'t').textContent=''})
+}
+function resetFull(){
+  $('fNum').textContent='--';$('fRing').style.setProperty('--d','0deg');$('fLv').textContent='--';
+  $('fTrans').textContent='识别内容会显示在这里';$('fScore').style.display='none';
+  $('fSteps').style.display='none';$('fMissed').innerHTML='';$('fAiBtn').disabled=true;$('fAiOut').innerHTML='';
+  ['fd0','fd1','fd2','fd3'].forEach(id=>{$(id+'f').style.width='0';$(id+'p').textContent='--%';$(id+'t').textContent=''})
 }
 
-// ══════════════════════════════════════════
-//  AI DEEP ANALYSIS
-// ══════════════════════════════════════════
-async function runAI(){
+// ── AI ANALYSIS ────────────────────────────
+async function doAI(mode){
   const sentence=recTarget||sents[sidx];
-  const spoken=$('trans').textContent;
-  if(!spoken||spoken.length<5){$('aiOut').innerHTML=`<div style="color:var(--o);font-size:13px;padding:8px 0">请先录音，再进行AI分析。</div>`;return;}
-  $('aiAnalBtn').disabled=true;
-  $('aiOut').innerHTML=`<div class="loader" style="margin-top:10px"><div class="spin"></div>AI正在分析连读和发音（约6-10秒）…</div>`;
+  const spoken=mode==='s'?$('sTrans').textContent:$('fTrans').textContent;
+  const outEl=mode==='s'?$('sAiOut'):$('fAiOut');
+  const btnEl=mode==='s'?$('sAiBtn'):$('fAiBtn');
+  if(!spoken||spoken.length<5||spoken.includes('识别')){outEl.innerHTML=`<p style="color:var(--o);font-size:13px;padding:8px 0">请先录音，再进行AI分析。</p>`;return}
+  btnEl.disabled=true;
+  outEl.innerHTML=`<div class="ldr"><div class="spin"></div>AI正在分析发音和连读（约8-12秒）…</div>`;
   const isSent=recTarget!==cur.answer;
+  const simPct=Math.round(Math.max(0,1-ed(wl(spoken),wl(sentence))/Math.max(wl(sentence).length,wl(spoken).length))*100);
   try{
     const raw=await callAPI(
-`IELTS British English speaking coach. Analyze this student's performance.
+`You are an expert IELTS speaking examiner and British English coach. Give a COMPREHENSIVE evaluation.
 
-${isSent?'Target sentence':'Target passage'}: "${sentence}"
-Student said: "${spoken}"
+${isSent?'Target sentence':'Full target answer'}: "${sentence}"
+Student actually said: "${spoken}"
+Content match: ${simPct}%
 
-Return ONLY valid JSON (no markdown fences):
+Analyze ALL of the following:
+1. PRONUNCIATION QUALITY: What specific pronunciation strengths and issues did you notice? Be concrete and specific about what the student said.
+2. CONNECTED SPEECH: Identify 3-4 specific word pairs in the TARGET that need connected speech work.
+3. CONTENT ACCURACY: How well did the student match the target? If they said something completely different, explain this clearly.
+4. RHYTHM & INTONATION: Comment on the rhythm, stress patterns, and intonation based on what was said.
+5. IMPROVEMENT STEPS: 3 very specific, actionable steps (in Chinese, 15-25 characters each).
+
+Return ONLY valid JSON (no markdown fences, no extra text):
 {
-  "liaisons":[{"pair":"word1 + word2","rule":"CV连读 or 连音R or 弱读","howTo":"一句具体说明（中文）","phonetic":"/xx/→/xx/"}],
-  "pronTip":"最重要的一个英式发音建议（中文，≤30字）",
-  "steps":["具体行动第一步（≤20字）","第二步","第三步"],
-  "encouragement":"一句鼓励（≤16字）"
-}
-Identify 3-5 liaison points. Steps must be concrete not vague.`,900);
-    const d=parseJSON(raw);
-    $('aiOut').innerHTML=`
-      <div class="ai-card">
-        <div style="display:flex;align-items:center;gap:7px;margin-bottom:11px">
-          <span style="font-size:16px">🤖</span><span style="font-size:14px;font-weight:900">AI连读深度分析</span>
-        </div>
-        <p style="font-size:11px;font-weight:900;color:var(--g);margin-bottom:8px">🔗 连读重点（点▶播放）</p>
-        ${(d.liaisons||[]).map(l=>`
-          <div class="ai-ll-item">
-            <span class="lbadge" style="background:#e2f0e8;color:#2d5e46">${l.rule}</span>
-            <div style="flex:1;min-width:0">
-              <div style="font-size:13px;font-weight:800">${l.pair}</div>
-              <div style="font-size:11px;color:var(--sub);margin-top:2px">${l.howTo}</div>
-              <div style="font-family:monospace;font-size:10px;color:var(--b);margin-top:2px">${l.phonetic||''}</div>
-            </div>
-            <button class="btn btn-ghost btn-sm" style="padding:5px 8px;font-size:11px" onclick="say('${l.pair.replace(/\s*\+\s*/g,' ').replace(/['"]/g,'')}',0.72)">▶</button>
-          </div>`).join('')}
-        <div style="background:#fff;border-radius:10px;padding:10px;margin:10px 0">
-          <p style="font-size:11px;font-weight:800;color:var(--sub);margin-bottom:4px">发音建议</p>
-          <p style="font-size:13px">${d.pronTip||''}</p>
-        </div>
-        <p style="font-size:11px;font-weight:900;color:var(--g);margin-bottom:8px">🎯 AI定制练习步骤</p>
-        ${(d.steps||[]).map((s,i)=>`<div class="step" style="margin-bottom:8px"><span class="step-n">${i+1}</span><span class="step-t">${s}</span></div>`).join('')}
-        <div class="ai-encourage">💪 ${d.encouragement||'继续练，你会越来越好！'}</div>
-      </div>`;
-    $('aiAnalBtn').disabled=false;
-    $('aiAnalBtn').textContent='🤖 重新AI分析';
+  "pronunciationFeedback": "具体发音评价，结合学生说的内容（中文，3-4句）",
+  "liaisons": [{"pair":"word1 + word2","rule":"CV连读 or 连音R or 弱读","howTo":"具体怎么连（中文，1句话）","phonetic":"/音标示例/"}],
+  "contentFeedback": "内容匹配评价（中文，1-2句，诚实说明差距）",
+  "rhythmFeedback": "节奏语调评价（中文，1-2句）",
+  "steps": ["具体步骤1（≤25字）","步骤2","步骤3"],
+  "encouragement": "鼓励语（中文，≤16字）"
+}`,1100);
+    const d=parseJ(raw);
+    outEl.innerHTML=`<div class="aicard">
+      <div class="aihead">🤖 AI综合发音分析</div>
+      <div class="aipron"><p>📝 发音评价</p><p>${d.pronunciationFeedback||''}</p></div>
+      <div class="aipron"><p>🎵 节奏语调</p><p>${d.rhythmFeedback||''}</p></div>
+      <div class="aipron"><p>📊 内容匹配</p><p>${d.contentFeedback||''}</p></div>
+      <p style="font-size:12px;font-weight:700;color:var(--f);margin:11px 0 8px">🔗 连读重点（点▶播放）</p>
+      ${(d.liaisons||[]).map(l=>`<div class="ail">
+        <span class="lbg" style="background:var(--fl);color:var(--fm)">${l.rule}</span>
+        <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:700">${l.pair}</div>
+        <div style="font-size:12px;color:var(--sub);margin-top:2px">${l.howTo}</div>
+        <div style="font-family:monospace;font-size:10px;color:var(--b);margin-top:2px">${l.phonetic||''}</div></div>
+        <button class="btn btn-g btn-sm" style="padding:5px 8px;font-size:11px" onclick="say('${l.pair.replace(/\s*\+\s*/g,' ').replace(/['"]/g,'')}',0.72)">▶</button>
+      </div>`).join('')}
+      <p style="font-size:12px;font-weight:700;color:var(--f);margin:11px 0 8px">🎯 AI定制步骤</p>
+      ${(d.steps||[]).map((s,i)=>`<div class="step"><span class="sn">${i+1}</span><span class="st">${s}</span></div>`).join('')}
+      <div class="aienc">💪 ${d.encouragement||'继续练，你会越来越好！'}</div>
+    </div>`;
+    btnEl.disabled=false;btnEl.textContent='🤖 重新AI分析';
   }catch(err){
-    $('aiOut').innerHTML=`<div style="background:#fde8e0;border-radius:10px;padding:12px;font-size:13px;color:#7a2a18;margin-top:10px">❌ 分析失败：${err.message}</div>`;
-    $('aiAnalBtn').disabled=false;
+    outEl.innerHTML=`<div class="merr">❌ AI分析失败：${err.message}</div>`;btnEl.disabled=false
   }
 }
 
-// ══════════════════════════════════════════
-//  INIT
-// ══════════════════════════════════════════
+// ── AI GENERATE ────────────────────────────
+function detectPart(q){const l=q.toLowerCase();if(l.startsWith('describe')||l.includes('talk about'))return'2';if(l.includes('why do you think')||l.includes('how important')||(l.includes('do you think')&&l.length>60))return'3';return'1'}
+
+async function genAnswer(){
+  const q=$('aiQ').value.trim();if(!q){$('aiQ').focus();return}
+  let part=$('partPick').value;if(part==='auto')part=detectPart(q);
+  const wc=part==='2'?'170 to 210 words':part==='3'?'100 to 130 words':'70 to 100 words';
+  const pn=part==='2'?'Part 2 (2-minute monologue)':part==='3'?'Part 3 (follow-up discussion)':'Part 1 (short conversation)';
+  $('genOut').innerHTML=`<div class="ldr"><div class="spin"></div>AI 正在生成 Band 7-8 答案…（约8-12秒）</div>`;
+  try{
+    const raw=await callAPI(
+`Generate a natural Band 7-8 IELTS Speaking answer in British English.
+Question: "${q}" | Type: ${pn} | Target: ${wc}
+Requirements: Conversational British English, specific personal examples, varied sentence structures, natural discourse markers (Well/Actually/To be honest/I would say), 2-3 advanced collocations, clear conclusion.
+Return ONLY this JSON (no markdown):
+{"answer":"...","phrases":["phrase 1","phrase 2","phrase 3","phrase 4"],"pron":["tip 1","tip 2","tip 3"]}`,1200);
+    const d=parseJ(raw);if(!d.answer)throw new Error('未收到答案');
+    $('genOut').innerHTML=`<div class="gen-prev">${d.answer}</div>
+      <div class="gen-acts">
+        <button class="btn btn-f btn-full" onclick="loadGen(${JSON.stringify(q).replace(/</g,'&lt;')},${JSON.stringify(d).replace(/</g,'&lt;')},${part})">✅ 加载到练习区</button>
+        <button class="btn btn-g" onclick="say(${JSON.stringify(d.answer)})">🔊</button>
+      </div>`;
+    loadGen(q,d,part)
+  }catch(err){$('genOut').innerHTML=`<div class="merr">❌ 生成失败：${err.message}<br><small>请检查 Groq API Key（在 ⚙ 设置中）</small></div>`}
+}
+
+function loadGen(q,d,part){
+  const pLabel=part==='2'?'Part 2':part==='3'?'Part 3':'Part 1';
+  cur={part:pLabel,topic:'AI生成',q,answer:d.answer,phrases:d.phrases||[],pron:d.pron||[]};
+  sents=cur.answer.match(/[^.!?]+[.!?]+/g)||[cur.answer];sents=sents.map(s=>s.trim());sidx=0;showAll=false;
+  $('pTag').textContent=pLabel;$('pTag').className='tag tai';
+  $('tTag').textContent='AI生成';$('tTag').className='tag tai';
+  $('sTag').textContent='✨ AI生成';$('sTag').className='tag tai';
+  $('qText').textContent=q;$('ansText').innerHTML=hlPhrases(cur.answer,cur.phrases);
+  $('phrases').innerHTML=cur.phrases.map(p=>`<li>${p}</li>`).join('');
+  $('prons').innerHTML=cur.pron.map(p=>`<li>${p}</li>`).join('');
+  renderSents();updateS();resetS();resetFull();
+  setTimeout(()=>document.querySelector('.pcard').scrollIntoView({behavior:'smooth',block:'center'}),300)
+}
+
+// ── INIT ──────────────────────────────────
 window.addEventListener('load',()=>{
-  // Restore saved API key
-  const saved=store.get('ielts_ak');
-  if(saved){$('apiKeyInput').value=saved;$('keyStatus').textContent='✓ 已读取保存的 Key';$('keyStatus').style.color='var(--g)';}
-  // Show API notice if on GitHub Pages (not localhost and no api key)
+  const saved=store.get('ielts_gk');
+  if(saved){$('apiKey').value=saved;$('kSt').textContent='✓ 已读取保存的 Key';$('kSt').style.color='var(--f)'}
   const isGHP=!location.hostname.includes('localhost')&&!location.hostname.includes('127.')&&!location.hostname.includes('claude.ai');
-  if(isGHP&&!getKey()) $('apiNotice').style.display='block';
+  if(isGHP&&!getKey())$('apiNote').style.display='block';
   filterQ();loadVoices();
-  if('speechSynthesis' in window){
-    window.speechSynthesis.onvoiceschanged=loadVoices;
-    setTimeout(loadVoices,700);setTimeout(loadVoices,1800);
-  }
+  if('speechSynthesis' in window){window.speechSynthesis.onvoiceschanged=loadVoices;setTimeout(loadVoices,700);setTimeout(loadVoices,1800)}
 });
 </script>
 </body>
